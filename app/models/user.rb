@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_many :menus
+
   validates_presence_of :name, :email, :public_id
   validates_uniqueness_of :email, allow_blank: true
 

@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show]
     post "/user/authenticate", to: "users#authenticate", as: :authenticate_user
     get "/user", to: "current_user#show", as: :current_user
+    resources :menus, only: [:create, :show]
   end
 end
