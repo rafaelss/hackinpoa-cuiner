@@ -7,11 +7,11 @@ Plataforma que agrega profissionais de culinária e disponibiliza suas agendas d
 ## Inspiração
  * AirBnB
  
-## Documentation
+## Documentação
  * Trello [https://trello.com/b/uwmBCtuW/cuiner]
  * Project [http://bit.ly/1PxHE31]
 
-## Tech
+## Tecnologia
 
 ### FrontEnd
  * Web Starter Kit
