@@ -1,5 +1,6 @@
 
-button:focus { border: none; }
+button:focus { outline: none; }
+input:focus { outline: none; }
 
 button
 {
