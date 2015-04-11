@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "User", type: :request do
+RSpec.describe "Current User", type: :request do
   subject { JSON.parse(response.body) }
 
   describe "GET /user" do
     context "when user is not logged in" do
       it "returns 403" do
-        get "/user"
+        get current_user_path
 
         expect(response).to have_http_status(403)
       end
@@ -27,7 +27,7 @@ RSpec.describe "User", type: :request do
       end
 
       it "returns an user" do
-        get user_path
+        get current_user_path
 
         expect(response).to have_http_status(200)
         expect(subject["user"]["id"]).to match(/^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/)

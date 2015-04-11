@@ -4,7 +4,7 @@ RSpec.describe "Authentication", type: :request do
   describe "POST /user/authenticate" do
     context "with wrong credentials" do
       it "returns 403" do
-        get user_path
+        post authenticate_user_path, email: "a@b.com", password: "abc"
 
         expect(response).to have_http_status(403)
       end
