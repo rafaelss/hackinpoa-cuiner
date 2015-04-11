@@ -11,15 +11,7 @@ RSpec.describe "Authentication", type: :request do
     end
 
     context "with valid credentials" do
-      let(:user) do
-        User.create!(
-          first_name: "foo",
-          last_name: "baz",
-          email: "foo@bar.com",
-          password: "aaa123",
-          password_confirmation: "aaa123"
-        )
-      end
+      let(:user) { create_user }
 
       it "authenticates the user" do
         post authenticate_user_path, email: user.email, password: "aaa123"
