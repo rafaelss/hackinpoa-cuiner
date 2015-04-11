@@ -7,4 +7,4 @@ addons:
   postgresql: "9.3"
 before_script:
   - psql -c 'create database cuiner_test;' -U postgres
-  - printf 'test:\n  adapter: postgresql\n  database: cuiner_test\n  username: postgres' > config/database.yml
+  - "printf 'test:\n  adapter: postgresql\n  database: cuiner_test\n  username: postgres' > config/database.yml"
