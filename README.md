@@ -10,6 +10,7 @@ Plataforma que agrega profissionais de culinária e disponibiliza suas agendas d
 ## Documentação
  * Trello [https://trello.com/b/uwmBCtuW/cuiner]
  * Project [http://bit.ly/1PxHE31]
+ * HackinPoa [http://hackinpoa.globo.com/projetos/p/48]
 
 ## Tecnologia
 
