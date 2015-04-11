@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate!, only: [:authenticate]
 
   def create
-    user = User.create(params.permit(:name, :email, :password, :password_confirmation))
+    user = User.create(allowed_params)
     respond_with(user)
   end
 
@@ -17,5 +17,11 @@ class UsersController < ApplicationController
 
     session[:user_id] = user.public_id
     redirect_to current_user_url
+  end
+
+  protected
+
+  def allowed_params
+    params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 end

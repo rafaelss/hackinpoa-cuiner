@@ -13,7 +13,8 @@ RSpec.describe "Authentication", type: :request do
     context "with valid credentials" do
       let(:user) do
         User.create!(
-          name: "foo",
+          first_name: "foo",
+          last_name: "baz",
           email: "foo@bar.com",
           password: "aaa123",
           password_confirmation: "aaa123"

@@ -13,7 +13,8 @@ module SignInHelper
     @@n += 1
 
     User.create(
-      name: "foo #{@@n}",
+      first_name: "foo #{@@n}",
+      last_name: "baz #{@@n}",
       email: "foo#{@@n}@bar.com",
       password: PASSWORD,
       password_confirmation: PASSWORD
