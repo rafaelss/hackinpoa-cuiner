@@ -4,8 +4,6 @@ RSpec.describe "Users", type: :request do
   subject { JSON.parse(response.body) }
 
   describe "POST /users" do
-    before { sign_in }
-
     it "creates an user" do
       post users_path, first_name: "foo", last_name: "baz", email: "foo@bar.com", password: "aaa123", password_confirmation: "aaa123"
 
