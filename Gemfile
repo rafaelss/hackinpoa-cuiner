@@ -13,4 +13,5 @@ group :development, :test do
   gem 'byebug', '4.0.5'
   gem 'web-console', '2.1.2'
   gem 'rspec-rails', '3.2.1'
+  gem 'awesome_print', '1.6.1'
 end
