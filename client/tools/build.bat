@@ -1,3 +1,3 @@
-cd ../client
+cd ..
 gulp
 pause
