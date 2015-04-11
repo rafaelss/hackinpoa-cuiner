@@ -1,0 +1,3 @@
+# Design Folder
+Designers should put their RAW artwork here, like PSDs, Fonts, Icons ...  
+

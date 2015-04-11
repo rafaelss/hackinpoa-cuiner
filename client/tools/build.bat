@@ -1,0 +1,3 @@
+cd ../client
+gulp
+pause

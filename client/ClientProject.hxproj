@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project version="2">
+  <!-- Output SWF options -->
+  <output>
+    <movie outputType="Application" />
+    <movie input="" />
+    <movie path="client\app\scripts\app.js" />
+    <movie fps="0" />
+    <movie width="0" />
+    <movie height="0" />
+    <movie version="1" />
+    <movie minorVersion="0" />
+    <movie platform="JavaScript" />
+    <movie background="#FFFFFF" />
+    <movie preferredSDK="Haxe 3.2.0;3.2.0;" />
+  </output>
+  <!-- Other classes to be compiled into your SWF -->
+  <classpaths>
+    <class path="client\source" />
+  </classpaths>
+  <!-- Build options -->
+  <build>
+    <option directives="" />
+    <option flashStrict="False" />
+    <option noInlineOnDebug="False" />
+    <option mainClass="MainClient" />
+    <option enabledebug="False" />
+    <option additional="" />
+  </build>
+  <!-- haxelib libraries -->
+  <haxelib>
+    <!-- example: <library name="..." /> -->
+  </haxelib>
+  <!-- Class files to compile (other referenced classes will automatically be included) -->
+  <compileTargets>
+    <compile path="src\Main.hx" />
+    <compile path="src\MainHTML.hx" />
+    <compile path="source\Dungeon00.hx" />
+    <compile path="source\examples\dungeon\DungeonApp.hx" />
+    <compile path="source\examples\curves\Main.hx" />
+    <compile path="source\Main.hx" />
+    <compile path="Main.hx" />
+    <compile path="MainHTML.hx" />
+    <compile path="client\src\MainClient.hx" />
+    <compile path="client\hxsrc\MainClient.hx" />
+    <compile path="client\source\MainClient.hx" />
+  </compileTargets>
+  <!-- Paths to exclude from the Project Explorer tree -->
+  <hiddenPaths>
+    <hidden path="obj" />
+    <hidden path="client\node_modules" />
+  </hiddenPaths>
+  <!-- Executed before build -->
+  <preBuildCommand />
+  <!-- Executed after build -->
+  <postBuildCommand alwaysRun="False" />
+  <!-- Other project options -->
+  <options>
+    <option showHiddenPaths="False" />
+    <option testMovie="Custom" />
+    <option testMovieCommand="" />
+  </options>
+  <!-- Plugin storage -->
+  <storage />
+</project>
