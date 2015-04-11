@@ -1,0 +1,53 @@
+
+button:focus { border: none; }
+
+button
+{
+	
+	border: solid 1px #9a9a9a;
+	padding: 10px;
+	transition: background-color 0.05s ease-out;
+}
+
+input
+{
+	font-family: 'kievit-light';	
+	color: #e2b250;
+	padding: 15px;
+	
+}
+
+.c-button-blue
+{
+	color: #fff;
+	font-family: 'kievit-bold';	
+	background-color: #3b83d8;
+}
+
+.c-button-blue:active
+{
+	background-color: #3169aa;
+}
+
+.c-button-yellow
+{
+	color: #fff;
+	font-family: 'kievit-bold';	
+	background-color: #e2b250;
+}
+
+.c-button-yellow:active
+{
+	background-color: #c49a44;
+}
+
+.c-field
+{
+	margin-right: 13px;
+	border: solid 1px #9a9a9a;	
+}
+
+.c-field:active
+{
+	border: solid 1px #7f7f7f;
+}

@@ -70,20 +70,62 @@ textarea {
 .fh   { height: 100%; }
 .fwh  { width: 100%; height: 100%; }
 
+.fvw  { width: 100vw; }
+.fvh  { height: 100vh; }
+.fvwh { width: 100vw; height: 100vh; }
+
+.ry0 { top: 0vh; }
+.ry1 { top: 100vh; }
+.ry2 { top: 200vh; }
+.ry3 { top: 300vh; }
+.ry4 { top: 400vh; }
+
+.fs10 { font-size: 10pt; }
+.fs11 { font-size: 11pt; }
+.fs12 { font-size: 12pt; }
+.fs14 { font-size: 14pt; }
+.fs16 { font-size: 16pt; }
+.fs18 { font-size: 18pt; }
+.fs24 { font-size: 24pt; }
+.fs28 { font-size: 28pt; }
+
+.fr  { font-family: 'kievit', Helvetica, Arial, sans-serif; }
+.fbi { font-family: 'kievit-bold-italic', Helvetica, Arial, sans-serif; }
+.fl  { font-family: 'kievit-light', Helvetica, Arial, sans-serif; }
+.fli { font-family: 'kievit-light-italic', Helvetica, Arial, sans-serif; }
+
+.tc { text-align: center; }
+.tl { text-align: left; }
+.tr { text-align: right; }
+
+.lh0 { line-height: 0px; }
+
 .m1  { margin: 1px; }
 .m2  { margin: 2px; }
 .m4  { margin: 4px; }
 .m8  { margin: 8px; }
 .m10 { margin: 10px; }
 
+.mb1  { margin-bottom: 1px; }
+.mb2  { margin-bottom: 2px; }
+.mb4  { margin-bottom: 4px; }
+.mb8  { margin-bottom: 8px; }
+.mb10 { margin-bottom: 10px; }
+
 .tw-alpha { transition: opacity 0.2s ease-out; }
 .tw-xy    { transition: left 0.2s ease-out, top 0.2s ease-out; }
 .tw-x     { transition: left 0.2s ease-out; }
 .tw-y     { transition: top 0.2s ease-out; }
 
-.fr { float: right; }
-.fl { float: left; }
+.flr { float: right; }
+.fll { float: left; }
 .ib { display: inline-block; }
+
+.oh { overflow: hidden; }
+
+.c-white  { color: rgb(255,255,255); }
+.c-yellow { color: rgb(237,187,56); }
+.c-blue   { color: rgb(53,123,219); }
 
 /* ==========================================================================
    Helper classes

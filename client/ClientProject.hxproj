@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="client\app\scripts\app.js" />
+    <movie path="app\scripts\app.js" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -17,13 +17,14 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="client\source" />
+    <class path="source" />
   </classpaths>
   <!-- Build options -->
   <build>
     <option directives="" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
-    <option mainClass="MainClient" />
+    <option mainClass="Main" />
     <option enabledebug="False" />
     <option additional="" />
   </build>
@@ -38,17 +39,18 @@
     <compile path="source\Dungeon00.hx" />
     <compile path="source\examples\dungeon\DungeonApp.hx" />
     <compile path="source\examples\curves\Main.hx" />
-    <compile path="source\Main.hx" />
     <compile path="Main.hx" />
     <compile path="MainHTML.hx" />
     <compile path="client\src\MainClient.hx" />
     <compile path="client\hxsrc\MainClient.hx" />
     <compile path="client\source\MainClient.hx" />
+    <compile path="source\Main.hx" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
     <hidden path="obj" />
     <hidden path="client\node_modules" />
+    <hidden path="node_modules" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />

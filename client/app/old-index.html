@@ -51,44 +51,37 @@
     <link rel="stylesheet" href="styles/home.css">
   </head>
   <body>
-	  
-	<div class="home fwh">		
-		<section class="sections rel lh0">		
-			<div id="s-splash" class="splash fw ib oh rel" style="background-color:#f33;">				
-				<div id="s-splash-background" class="fwh abs">
-					<div class="background fw abs" style="background-image: url('images/home/splash/splash-00.jpg')"></div>
-				</div>
-				<div class="fade fwh abs"></div>
-				<img class="logo abs" src="images/logo/logo-cuiner.png"/>
-				<div class="caption abs">
-					<p class="fbi tc fs18 mb4 c-white">seu chef e sua comida predileta</p>
-					<p class="fbi tc fs28 c-yellow">na sua casa</p>
-				</div>
-				<div class="dock-right abs">
-					<div class="top fw rel">
-						<div class="form rel">
-							<input class="c-field fs12 fw rel" type="text" placeholder="O que gostaria de comer?"/>
-							<input class="c-field fs12 fw rel" type="date" placeholder="Para quando precisa do chef?"/>
-							<input class="c-field fs12 fw rel" type="text" placeholder="Faixa de preço?"/>
-							<input class="c-field fs12 fw rel" type="text" placeholder="Qtas pessoas?"/>
-							
-							<button class="c-button-yellow fs18">Buscar</button>
-						</div>
-					</div>
-					<div class="footer fw rel">
-						<div class="content fw rel">
-							<p class="t0 fr fs10 tl c-white rel">Tem o prato que seus amigos amam?<br/>Mais pessoas merecem apreciá-lo.</p>
-							<button class="c-button-blue fs16 fw rel">Divulgue o seu Menu</button>
-						</div>
-					</div>
-				</div>
-			</div>	
-			<div id="s-mid"    class="mid fw ib rel" style="background-color:#ff3;"></div>	
-			<div id="s-end"    class="end fw ib rel" style="background-color:#3f3;"></div>	
-		</section>
-	</div>  
-	  
+    <header class="app-bar promote-layer">
+      <div class="app-bar-container">
+        <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
+        <h1 class="logo">Web <strong>Starter</strong> Kit</h1>
+        <section class="app-bar-actions">
+        <!-- Put App Bar Buttons Here -->
+        <!-- e.g <button><i class="icon icon-star"></i></button> -->
+        </section>
+      </div>
+    </header>
+
+    <nav class="navdrawer-container promote-layer">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#hello"><span class="oi" data-glyph="home"></span>Hello</a></li>
+        <li><a href="#get-started"><span class="oi" data-glyph="bolt"></span>Get Started</a></li>
+        <li><a href="styleguide.html"><span class="oi" data-glyph="book"></span>Style Guide</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1 id="hello">Hello!</h1>
+      <p>Welcome to Web Starter Kit.</p>
+
+      <h2 id="get-started">Get Started.</h2>
+      <p>Read how to <a href="https://developers.google.com/web/starter-kit">Get Started</a> or check out the <a href="styleguide.html">Style Guide</a>.</p>
+	  <div id="map-canvas" style="width:100%; height: 600px;"></div>
+    </main>
+
     <!-- build:js scripts/main.min.js -->
+    <script src="scripts/main.js"></script>
 	<script src="scripts/app.js"></script>
     <!-- endbuild -->
 
