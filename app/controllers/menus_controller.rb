@@ -5,10 +5,15 @@ class MenusController < ApplicationController
   end
 
   def create
-    menu = current_user.menus.create(params.permit(
-      :name, :price, :price_per_person, :number_of_people
-    ))
-
+    menu = current_user.menus.create(allowed_params)
     respond_with(menu)
+  end
+
+  protected
+
+  def allowed_params
+    params.permit(
+      :name, :price, :price_per_person, { tags: [] }, { number_of_people: [] }
+    )
   end
 end
