@@ -3,6 +3,26 @@ require 'rails_helper'
 RSpec.describe "Menus", type: :request do
   subject { JSON.parse(response.body) }
 
+  describe "GET /menus" do
+    context "when user is not logged in" do
+      it "returns 403" do
+        get menus_path
+
+        expect(response).to have_http_status(403)
+      end
+    end
+
+    context "when user is logged in" do
+      before { sign_in }
+
+      it "returns menus" do
+        get menus_path
+
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
+
   describe "POST /menus" do
     context "when user is not logged in" do
       it "returns 403" do
