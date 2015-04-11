@@ -33,6 +33,8 @@ module Cuiner
     config.active_record.raise_in_transactional_callbacks = true
 
     config.generators do |g|
+      g.view_specs false
+      g.helper_specs false
       g.assets false
       g.helper false
     end

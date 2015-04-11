@@ -7,7 +7,20 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.where(public_id: params[:id]).first!
-    respond_with(user)
+    if current_user
+      respond_with(current_user)
+    else
+      respond_with({ error: "not logged in" }, status: 403)
+    end
+  end
+
+  def authenticate
+    user = User.where(email: params[:email]).first
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.public_id
+      redirect_to user_path
+    else
+      respond_with({ error: "not logged in" }, status: 403)
+    end
   end
 end
