@@ -33,6 +33,12 @@ class HomeView extends CuinerEntity
 		"bt-form-login",
 		"bt-form-register",
 		"bt-publish",
+		"bt-category-vegan",
+		"bt-category-dessert",
+		"bt-category-thai",
+		"bt-category-sandwich",
+		"bt-category-pizza",
+		"bt-category-drinks",		
 		];
 		for (i in 0...btl.length) 
 		{ 
@@ -50,6 +56,9 @@ class HomeView extends CuinerEntity
 	{
 		var ev : MouseEvent = p_event;
 		var el : Element = cast	ev.currentTarget;
+		
+		var search_url : String =  "search.html?";
+		
 		trace("HomeView> Clicked ["+el.id+"]");
 		switch(el.id)
 		{
@@ -59,7 +68,7 @@ class HomeView extends CuinerEntity
 			case "bt-login":
 				modal.Show("modal-login");
 			case "bt-search":
-				var search_url : String =  "search.html?";
+				
 				search_url += "q=" + modal.SearchData.q;
 				if (modal.SearchData.price != "") search_url += "&price=" + modal.SearchData.price;
 				if (modal.SearchData.persons != "") search_url += "&persons=" + modal.SearchData.persons;				
@@ -70,6 +79,18 @@ class HomeView extends CuinerEntity
 			case "bt-form-login":
 				trace(modal.LoginData);
 				application.controller.ProcessLogin(modal.LoginData);
+			
+			case "bt-category-vegan",
+			 "bt-category-dessert",
+			 "bt-category-thai",
+			 "bt-category-sandwich",
+			 "bt-category-pizza",
+			 "bt-category-drinks":
+				
+				var cat : String = el.id.split("-")[2];				
+				search_url += "q=" + cat;
+				Browser.window.location.href = search_url;
+			
 		}
 		
 	}

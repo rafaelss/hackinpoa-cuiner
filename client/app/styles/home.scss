@@ -182,14 +182,14 @@ p
 		  .dock-right
 		  {
 			  right:0px;
-			  bottom: 60px;
+			  bottom: 75px;
 			  width: 400px;
 			  height: 400px;
 			  
 			  .menu
 			  {
 				
-				height:50px;
+				height:120px;
 				
 				span { user-select: none; }
 				
@@ -239,7 +239,7 @@ p
 			  
 			.top
 			{
-				height: 275px;
+				height: 225px;
 				margin-bottom: 10px;
 				background-color: rgba(0,0,0,0.4);
 				
@@ -254,9 +254,9 @@ p
 					//background-color: rgba(255,60,60,0.5);
 					
 					input:nth-child(1) { width: 260px; }
-					input:nth-child(2) { width: 260px; }
+					input:nth-child(2) { width: 105px; }
 					input:nth-child(3) { width: 105px; }
-					input:nth-child(4) { width: 105px; }
+					
 					
 					
 					.c-field
@@ -286,7 +286,7 @@ p
 				{
 					top:20px;
 					left: 50%;
-					width: 245px;
+					width: 265px;
 					margin-left: -122px;							
 					height: 100%;
 					//background-color: rgba(255,60,60,0.5);
@@ -307,18 +307,86 @@ p
 	  
 	  .s1
 	  {
-		  height: 845px;
+		  padding-top: 20px;
+		  
+		  p:nth-child(1) { margin-bottom: 20px; }
+		  p:nth-child(2) { margin-bottom: 15px; }
+		  //height: 845px;
+		  
+		  .categories
+		  {
+			  left:50%;
+			  margin-left: -510px;
+			  width: 1040px;
+
+			 a:nth-child(1) { div { background-image: url("../images/home/category/vegan.jpg");   }}
+			 a:nth-child(2) { div { background-image: url("../images/home/category/dessert.jpg"); }}
+			 a:nth-child(3) { div { background-image: url("../images/home/category/thai.jpg");    }}
+			 a:nth-child(4) { div { background-image: url("../images/home/category/sandwich.jpg");}}
+			 a:nth-child(5) { div { background-image: url("../images/home/category/pizza.jpg");   }}
+			 a:nth-child(6) { div { background-image: url("../images/home/category/drinks.jpg");  }}
+			 
+			 a 
+			 { 
+				 div { transition: background-size 0.5s ease-out; }
+				p 
+				{ 
+					width:300px; 
+					height: 30px;
+					top: 250px;
+					padding-top: 10px;
+					padding-left: 20px;
+					background-color: rgba(0,0,0,0.4);  
+				}
+			 }
+			
+			  .category-item
+			  {
+				 
+				 width:320px; 
+				 height:290px;
+				 background-size: 100%;
+				 background-position: center;
+				 margin-right: 20px;
+				 margin-bottom: 20px;
+			  }
+			  
+			  .category-item:hover
+			  {
+				 background-size: 120%; 
+			  }
+			  
+			  margin-bottom: 20px;
+		  }
 	  }
 	  
 	  .s2
 	  {
 		  height: 115px;
 		  background-color: #e2b250;
+		  div
+		  {
+			  left: 50%;
+			  top: 50%;
+			  width: 880px;
+			  height:50px;
+			  margin-left: -440px;
+			  margin-top: -25px;
+			  button { width:255px; height: 45px; }
+			  span { margin-right: 20px; }
+		  }
 	  }
 	  
 	  .s3
 	  {
-		  height: 70px;		  
+		  height: 70px;
+		  .logo 
+		  { 
+			  left: 160px;
+			  top: 50%;
+			  height: 50px;
+			  margin-top: -25px;
+		  }
 	  }
 	  
   }

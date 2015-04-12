@@ -32,6 +32,7 @@ class Web
 			var r : Float = bt <= 0.0 ? 0.0 : (0.9999 * (bl / (bt + 5)));	
 			if (ld.status == 404) { p_callback(null, r); return; }
 			if (ld.status == 403) { p_callback(null, r); return; }
+			if (ld.status == 500) { p_callback(null, r); return; }
 			p_callback(null,r);
 		};
 		ld.onload =
@@ -40,6 +41,7 @@ class Web
 			var ev : XMLHttpRequestProgressEvent = cast p_ev;
 			if (ld.status == 404) { p_callback(null, 1.0); return; }
 			if (ld.status == 403) { p_callback(null, 1.0); return; }	
+			if (ld.status == 500) { p_callback(null, 1.0); return; }
 			var res : String = ld.responseText;
 			res = res == null ? "" : res;
 			p_callback(res, 1.0);

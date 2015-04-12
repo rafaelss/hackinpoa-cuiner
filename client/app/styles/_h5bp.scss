@@ -23,7 +23,9 @@ body {
   line-height: 1.4;
 }
 
-a {
+a 
+{
+	cursor: pointer;
   color: #00e;
 }
 
@@ -32,6 +34,7 @@ a:visited {
 }
 
 a:hover {
+	cursor: pointer;
   color: #06e;
 }
 
@@ -91,6 +94,7 @@ textarea {
 .fs28 { font-size: 28pt; }
 
 .fr  { font-family: 'kievit', Helvetica, Arial, sans-serif; }
+.fb  { font-family: 'kievit-bold', Helvetica, Arial, sans-serif; }
 .fbi { font-family: 'kievit-bold-italic', Helvetica, Arial, sans-serif; }
 .fl  { font-family: 'kievit-light', Helvetica, Arial, sans-serif; }
 .fli { font-family: 'kievit-light-italic', Helvetica, Arial, sans-serif; }
@@ -126,9 +130,12 @@ textarea {
 
 .c-white  { color: rgb(255,255,255); }
 .c-yellow { color: rgb(237,187,56); }
-.c-blue   { color: rgb(53,123,219); }
+.c-blue   { color: #3d87dc; }
 .c-gray   { color: #9c9ba0; }
 .c-red   { color: #ff3333; }
+
+.dbg-green { background-color: #3f3 !important; opacity:0.6 !important; }
+.dbg-red   { background-color: #f33 !important; opacity:0.6 !important; }
 
 /* ==========================================================================
    Helper classes

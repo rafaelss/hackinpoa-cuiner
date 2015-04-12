@@ -227,6 +227,10 @@ cnr.core.Web.Process = function(p_url,p_method,p_data,p_callback) {
 			p_callback(null,r);
 			return;
 		}
+		if(ld.status == 500) {
+			p_callback(null,r);
+			return;
+		}
 		p_callback(null,r);
 	};
 	ld.onload = function(p_ev1) {
@@ -236,6 +240,10 @@ cnr.core.Web.Process = function(p_url,p_method,p_data,p_callback) {
 			return;
 		}
 		if(ld.status == 403) {
+			p_callback(null,1.0);
+			return;
+		}
+		if(ld.status == 500) {
 			p_callback(null,1.0);
 			return;
 		}
@@ -385,7 +393,7 @@ cnr.view.home.HomeView = function() {
 	console.log("HomeView> ctor");
 	this.modal = new cnr.view.home.HomeModalView();
 	var bt;
-	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish"];
+	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks"];
 	var _g1 = 0;
 	var _g = btl.length;
 	while(_g1 < _g) {
@@ -404,6 +412,7 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 	OnButtonClick: function(p_event) {
 		var ev = p_event;
 		var el = ev.currentTarget;
+		var search_url = "search.html?";
 		console.log("HomeView> Clicked [" + el.id + "]");
 		var _g = el.id;
 		switch(_g) {
@@ -416,7 +425,6 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 			this.modal.Show("modal-login");
 			break;
 		case "bt-search":
-			var search_url = "search.html?";
 			search_url += "q=" + Std.string(this.modal.get_SearchData().q);
 			if(this.modal.get_SearchData().price != "") search_url += "&price=" + Std.string(this.modal.get_SearchData().price);
 			if(this.modal.get_SearchData().persons != "") search_url += "&persons=" + Std.string(this.modal.get_SearchData().persons);
@@ -429,6 +437,11 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 		case "bt-form-login":
 			console.log(this.modal.get_LoginData());
 			this.get_application().controller.ProcessLogin(this.modal.get_LoginData());
+			break;
+		case "bt-category-vegan":case "bt-category-dessert":case "bt-category-thai":case "bt-category-sandwich":case "bt-category-pizza":case "bt-category-drinks":
+			var cat = el.id.split("-")[2];
+			search_url += "q=" + cat;
+			window.location.href = search_url;
 			break;
 		}
 	}
