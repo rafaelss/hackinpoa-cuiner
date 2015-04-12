@@ -175,7 +175,41 @@
 		
 	</div>  
 	
-	
+	<div id="modal" class="modal fwh abs" style="display:none; opacity:0.0;">
+		<div class="background fwh"></div>
+		<div id="modal-register" class="register abs" style="display:none;">
+			<div class="content fwh rel">
+				<img class="logo" src="images/logo/logo-cuiner.png"/>
+				<p class="fs11 fw tc c-gray">Preencha os campos abaixo para cadastrar.</p>
+				<input id="field-register-name" class="c-field fs12 fw rel" type="text" placeholder="Nome"/>
+				<input id="field-register-surname" class="c-field fs12 fw rel" type="text" placeholder="Sobrenome"/>
+				<input id="field-register-email" class="c-field fs12 fw rel" type="text" placeholder="Email"/>
+				<input id="field-register-password" class="c-field fs12 fw rel" placeholder="Senha" type="password" />
+				<p id="lb-register-error" class="lb-result fs12 c-red"></p>
+				<p class="fs11 fw tl c-gray">Ao cadastrar você concorda com os <br/> <a class="a-yellow c-yellow">Termos de Uso e Responsabilidade</a></p>
+				<button id="bt-form-register" class="c-button-yellow fs14">Cadastrar</button>
+				<p class="fs14 tc c-gray"><strong>ou</strong></p>
+				<a id="bt-form-facebook"><img class="bt-social" src="images/button/bt-home-facebook.png" /></a>
+				<a id="bt-form-googleplus"><img class="bt-social" src="images/button/bt-home-googleplus.png" /></a>
+			</div>
+		</div>
+		
+		<div id="modal-login" class="login abs" style="display:none;">
+			<div class="content fwh rel">
+				<img class="logo" src="images/logo/logo-cuiner.png"/>
+				<p class="fs11 fw tc c-gray">Preencha os campos abaixo para fazer login.</p>
+				<input id="field-login-email" class="c-field fs12 fw rel" type="text" placeholder="Email"/>
+				<input id="field-login-password" class="c-field fs12 fw rel" placeholder="Senha" type="password" />
+				<p id="lb-login-error" class="lb-result fs12 c-red"></p>
+				<p class="fs11 fw tl c-gray"><a class="a-yellow c-yellow">Esqueci minha senha</a></p>
+				<button id="bt-form-login" class="c-button-yellow fs14">Login</button>
+				<p class="fs14 tc c-gray"><strong>ou</strong></p>
+				<a id="bt-form-facebook"><img class="bt-social" src="images/button/bt-home-facebook.png" /></a>
+				<a id="bt-form-googleplus"><img class="bt-social" src="images/button/bt-home-googleplus.png" /></a>
+			</div>
+		</div>
+		
+	</div>
 	
     
 	<script src="scripts/app.js"></script>
