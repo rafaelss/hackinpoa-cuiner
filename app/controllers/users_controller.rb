@@ -2,7 +2,10 @@ class UsersController < ApplicationController
   skip_before_action :authenticate!, only: [:create, :authenticate]
 
   def create
-    user = User.create(allowed_params)
+    user = User.new(allowed_params)
+    user.photo_url = default_avatar_url
+    user.save
+
     session[:user_id] = user.public_id if user.persisted?
     respond_with(user)
   end
@@ -29,6 +32,12 @@ class UsersController < ApplicationController
   protected
 
   def allowed_params
-    params.permit(:name, :email, :password, :password_confirmation)
+    params.permit(:name, :email, :phone, :password, :password_confirmation)
+  end
+
+  def default_avatar_url
+    path = Rails.root.join("design/imgs/banners/user_profile.jpg").to_s
+    avatar = Cloudinary::Uploader.upload(path)
+    avatar["url"]
   end
 end

@@ -16,11 +16,19 @@ describe UserSerializer, type: :serializer do
     expect(subject.email).to eq("foo@bar.com")
   end
 
+  it ".phone" do
+    expect(subject.phone).to eq("5198765432")
+  end
+
+  it ".photo_url" do
+    expect(subject.photo_url).to eq("http://cloud.host/default/image.jpg")
+  end
+
   describe ".as_json" do
     subject { serializer.as_json["user"] }
 
     it "should have declared attributes" do
-      expect(subject.keys).to eq([:id, :name, :email])
+      expect(subject.keys).to eq([:id, :name, :email, :phone, :photo_url])
     end
   end
 end
