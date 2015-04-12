@@ -46,13 +46,17 @@ gulp.task('jshint', function () {
     .pipe(reload({stream: true, once: true}))
     //.pipe($.jshint())
     //.pipe($.jshint.reporter('jshint-stylish'))
-    //.pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')))
+	;
 });
 
 // Optimize images
 gulp.task('images', function () {
   return gulp.src('app/images/**/*')
-    //.pipe($.cache($.imagemin({ progressive: true, interlaced: true })))
+    .pipe($.cache($.imagemin({
+      progressive: true,
+      interlaced: true
+    })))
     .pipe(gulp.dest('dist/images'))
     .pipe($.size({title: 'images'}));
 });
@@ -69,6 +73,15 @@ gulp.task('copy', function () {
     .pipe($.size({title: 'copy'}));
 });
 
+gulp.task('copy-open-iconic', function () {
+  return gulp.src([
+    'app/styles/open-iconic/fonts/*'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist/styles/open-iconic/fonts'))
+    .pipe($.size({title: 'copy'}));
+});
+
 // Copy web fonts to dist
 gulp.task('fonts', function () {
   return gulp.src(['app/fonts/**'])
@@ -77,8 +90,7 @@ gulp.task('fonts', function () {
 });
 
 // Compile and automatically prefix stylesheets
-gulp.task('styles', function () 
-{	
+gulp.task('styles', function () {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
     'app/styles/*.scss',
@@ -86,7 +98,7 @@ gulp.task('styles', function ()
     'app/styles/components/components.scss'
   ])
     .pipe($.sourcemaps.init())
-    //.pipe($.changed('.tmp/styles', {extension: '.css'}))
+    .pipe($.changed('.tmp/styles', {extension: '.css'}))
     .pipe($.sass({
       precision: 10,
       onError: console.error.bind(console, 'Sass error:')
@@ -139,9 +151,6 @@ gulp.task('html', function () {
 // Clean output directory
 gulp.task('clean', del.bind(null, ['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
 
-// Clean output directory from all css
-gulp.task('clean-tmp', del.bind(null, ['.tmp'], {dot: true}));
-
 // Watch files for changes & reload
 gulp.task('serve', ['styles'], function () {
   browserSync({
@@ -154,7 +163,7 @@ gulp.task('serve', ['styles'], function () {
     // https: true,
     server: ['.tmp', 'app']
   });
-  
+
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.{scss,css}'], ['styles', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['jshint']);
@@ -176,8 +185,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['html', 'images', 'fonts', 'copy'], cb);
-  
+  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy','copy-open-iconic'], cb);
 });
 
 // Run PageSpeed Insights

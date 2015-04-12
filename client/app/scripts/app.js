@@ -10,7 +10,6 @@ var CuinerApplication = function() {
 	if(window.Model == null) window.Model = cnr.model.CuinerModel;
 	if(window.WS == null) window.WS = cnr.model.CuinerWS;
 };
-CuinerApplication.__name__ = true;
 CuinerApplication.prototype = {
 	Run: function() {
 		console.log("CuinerApplication> Run");
@@ -24,14 +23,12 @@ CuinerApplication.prototype = {
 };
 var CuinerEntity = function() {
 };
-CuinerEntity.__name__ = true;
 CuinerEntity.prototype = {
 	get_application: function() {
 		return CuinerApplication.instance;
 	}
 };
 var HxOverrides = function() { };
-HxOverrides.__name__ = true;
 HxOverrides.substr = function(s,pos,len) {
 	if(pos != null && pos != 0 && len != null && len < 0) return "";
 	if(len == null) len = s.length;
@@ -42,7 +39,6 @@ HxOverrides.substr = function(s,pos,len) {
 	return s.substr(pos,len);
 };
 var Main = function() { };
-Main.__name__ = true;
 Main.main = function() {
 	cnr.model.CuinerModel.Local = true;
 	window.onload = function(ev) {
@@ -51,13 +47,7 @@ Main.main = function() {
 		Main.app.Run();
 	};
 };
-var Std = function() { };
-Std.__name__ = true;
-Std.string = function(s) {
-	return js.Boot.__string_rec(s,"");
-};
 var StringTools = function() { };
-StringTools.__name__ = true;
 StringTools.replace = function(s,sub,by) {
 	return s.split(sub).join(by);
 };
@@ -66,7 +56,6 @@ cnr.controller = {};
 cnr.controller.CuinerController = function() {
 	CuinerEntity.call(this);
 };
-cnr.controller.CuinerController.__name__ = true;
 cnr.controller.CuinerController.__super__ = CuinerEntity;
 cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 	LoadUserData: function() {
@@ -142,7 +131,6 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 });
 cnr.core = {};
 cnr.core.Web = function() { };
-cnr.core.Web.__name__ = true;
 cnr.core.Web.Process = function(p_url,p_method,p_data,p_callback) {
 	if(window.Web == null) window.Web = cnr.core.Web;
 	var url = StringTools.replace(p_url,"./",cnr.core.Web.Root);
@@ -204,9 +192,7 @@ cnr.core.Web.Send = function(p_url,p_data,p_callback,p_method) {
 };
 cnr.model = {};
 cnr.model.CuinerWS = function() { };
-cnr.model.CuinerWS.__name__ = true;
 cnr.model.CuinerModel = function() { };
-cnr.model.CuinerModel.__name__ = true;
 cnr.model.CuinerModel.get_Root = function() {
 	if(cnr.model.CuinerModel.Local) return "http://localhost:3000/"; else return "http://cuiner.herokuapp.com/";
 };
@@ -235,7 +221,6 @@ cnr.view.CuinerView = function() {
 		break;
 	}
 };
-cnr.view.CuinerView.__name__ = true;
 cnr.view.CuinerView.__super__ = CuinerEntity;
 cnr.view.CuinerView.prototype = $extend(CuinerEntity.prototype,{
 });
@@ -250,16 +235,15 @@ cnr.view.home.HomeModalView = function() {
 		_g.Hide();
 	};
 };
-cnr.view.home.HomeModalView.__name__ = true;
 cnr.view.home.HomeModalView.__super__ = CuinerEntity;
 cnr.view.home.HomeModalView.prototype = $extend(CuinerEntity.prototype,{
 	get_RegisterData: function() {
 		var res = { };
 		var f;
 		f = window.document.getElementById("field-register-name");
-		res.first_name = f.value;
-		f = window.document.getElementById("field-register-surname");
-		res.last_name = f.value;
+		res.name = f.value;
+		f = window.document.getElementById("field-register-phone");
+		if(f != null) res.phone = f.value;
 		f = window.document.getElementById("field-register-email");
 		res.email = f.value;
 		f = window.document.getElementById("field-register-password");
@@ -318,7 +302,6 @@ cnr.view.home.HomeView = function() {
 		bt.onclick = $bind(this,this.OnButtonClick);
 	}
 };
-cnr.view.home.HomeView.__name__ = true;
 cnr.view.home.HomeView.__super__ = CuinerEntity;
 cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 	ShowLoginData: function() {
@@ -336,7 +319,7 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 		},202);
 		var user_name = window.document.getElementById("field-menu-user-name");
 		var user_photo = window.document.getElementById("field-menu-user-photo");
-		user_name.innerText = Std.string(cnr.model.CuinerModel.UserLoginData.first_name) + " " + Std.string(cnr.model.CuinerModel.UserLoginData.last_name);
+		user_name.innerText = cnr.model.CuinerModel.UserLoginData.name;
 		user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
 	}
 	,HideLoginData: function() {
@@ -387,7 +370,6 @@ haxe.Timer = function(time_ms) {
 		me.run();
 	},time_ms);
 };
-haxe.Timer.__name__ = true;
 haxe.Timer.delay = function(f,time_ms) {
 	var t = new haxe.Timer(time_ms);
 	t.run = function() {
@@ -406,79 +388,8 @@ haxe.Timer.prototype = {
 	}
 };
 var js = {};
-js.Boot = function() { };
-js.Boot.__name__ = true;
-js.Boot.__string_rec = function(o,s) {
-	if(o == null) return "null";
-	if(s.length >= 5) return "<...>";
-	var t = typeof(o);
-	if(t == "function" && (o.__name__ || o.__ename__)) t = "object";
-	switch(t) {
-	case "object":
-		if(o instanceof Array) {
-			if(o.__enum__) {
-				if(o.length == 2) return o[0];
-				var str = o[0] + "(";
-				s += "\t";
-				var _g1 = 2;
-				var _g = o.length;
-				while(_g1 < _g) {
-					var i = _g1++;
-					if(i != 2) str += "," + js.Boot.__string_rec(o[i],s); else str += js.Boot.__string_rec(o[i],s);
-				}
-				return str + ")";
-			}
-			var l = o.length;
-			var i1;
-			var str1 = "[";
-			s += "\t";
-			var _g2 = 0;
-			while(_g2 < l) {
-				var i2 = _g2++;
-				str1 += (i2 > 0?",":"") + js.Boot.__string_rec(o[i2],s);
-			}
-			str1 += "]";
-			return str1;
-		}
-		var tostr;
-		try {
-			tostr = o.toString;
-		} catch( e ) {
-			return "???";
-		}
-		if(tostr != null && tostr != Object.toString) {
-			var s2 = o.toString();
-			if(s2 != "[object Object]") return s2;
-		}
-		var k = null;
-		var str2 = "{\n";
-		s += "\t";
-		var hasp = o.hasOwnProperty != null;
-		for( var k in o ) {
-		if(hasp && !o.hasOwnProperty(k)) {
-			continue;
-		}
-		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
-			continue;
-		}
-		if(str2.length != 2) str2 += ", \n";
-		str2 += s + k + " : " + js.Boot.__string_rec(o[k],s);
-		}
-		s = s.substring(1);
-		str2 += "\n" + s + "}";
-		return str2;
-	case "function":
-		return "<function>";
-	case "string":
-		return o;
-	default:
-		return String(o);
-	}
-};
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
-String.__name__ = true;
-Array.__name__ = true;
 var q = window.jQuery;
 js.JQuery = q;
 cnr.core.Web.Root = "";

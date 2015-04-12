@@ -62,7 +62,7 @@ class HomeView extends CuinerEntity
 		
 		var user_name : Element = Browser.document.getElementById("field-menu-user-name");
 		var user_photo : ImageElement = cast Browser.document.getElementById("field-menu-user-photo");
-		user_name.innerText = CuinerModel.UserLoginData.first_name+" "+CuinerModel.UserLoginData.last_name;
+		user_name.innerText = CuinerModel.UserLoginData.name;
 		user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
 	}
 	
