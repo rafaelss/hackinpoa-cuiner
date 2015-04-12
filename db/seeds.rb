@@ -12,5 +12,5 @@ menus = Menu.create!([
   { user_id: users[2].id, name: "Comida Japonesa", price: 20, price_per_person: 20, number_of_people: [2, 5], tags: ["sushi", "sashimi"] }
 ])
 
-ap Menu.search("churras")
-ap Menu.search("sushi")
+p Menu.search("churras")
+p Menu.search("sushi")
