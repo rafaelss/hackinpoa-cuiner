@@ -148,7 +148,14 @@ class CuinerController extends CuinerEntity
 				else 
 				{
 					trace("CuinerController> Search Success");
-					var res : Dynamic = Json.parse(r);
+					
+					var res : Dynamic = { menus:[] };
+					try
+					{
+						res = Json.parse(r);
+					}
+					catch (err:Dynamic) { }
+					
 					trace(res);
 										
 				}
@@ -209,7 +216,7 @@ class CuinerController extends CuinerEntity
 		var user_name : Element = Browser.document.getElementById("field-menu-user-name");
 		var user_photo : ImageElement = cast Browser.document.getElementById("field-menu-user-photo");
 		if(user_name!=null) user_name.innerText = CuinerModel.UserLoginData.name;
-		if(user_photo!=null)user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
+		if(user_photo!=null)user_photo.src = CuinerModel.UserLoginData.photo_url;
 	}
 	
 	/**

@@ -79,6 +79,15 @@ gulp.task('copy-open-iconic', function () {
     .pipe($.size({title: 'copy'}));
 });
 
+gulp.task('copy-app', function () {
+  return gulp.src([
+    'app/scripts/*'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist/scripts/'))
+    .pipe($.size({title: 'copy'}));
+});
+
 // Copy web fonts to dist
 gulp.task('fonts', function () {
   return gulp.src(['app/fonts/**'])
@@ -182,7 +191,7 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy','copy-open-iconic'], cb);
+  runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy','copy-open-iconic','copy-app'], cb);
 });
 
 // Run PageSpeed Insights

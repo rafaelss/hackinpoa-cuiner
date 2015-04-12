@@ -145,7 +145,11 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 			if(p >= 1) {
 				if(r == null) console.log("CuinerController> Search Error"); else {
 					console.log("CuinerController> Search Success");
-					var res = JSON.parse(r);
+					var res = { menus : []};
+					try {
+						res = JSON.parse(r);
+					} catch( err ) {
+					}
 					console.log(res);
 				}
 			}
@@ -184,7 +188,7 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 		var user_name = window.document.getElementById("field-menu-user-name");
 		var user_photo = window.document.getElementById("field-menu-user-photo");
 		if(user_name != null) user_name.innerText = cnr.model.CuinerModel.UserLoginData.name;
-		if(user_photo != null) user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
+		if(user_photo != null) user_photo.src = cnr.model.CuinerModel.UserLoginData.photo_url;
 	}
 	,HideLoginData: function() {
 		var el0;
