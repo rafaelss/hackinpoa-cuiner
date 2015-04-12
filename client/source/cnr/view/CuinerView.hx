@@ -1,5 +1,6 @@
 package cnr.view;
 import cnr.model.CuinerModel;
+import cnr.view.dashboard.DashboardCardapio;
 import cnr.view.detail.CardapioView;
 import cnr.view.home.HomeView;
 import cnr.view.search.SearchView;
@@ -19,6 +20,8 @@ class CuinerView extends CuinerEntity
 	
 	public var detail_cardapio : CardapioView;
 	
+	public var dashboard_cardapio : DashboardCardapio;
+	
 	public var modal : ModalView;
 
 	public function new() 
@@ -33,6 +36,7 @@ class CuinerView extends CuinerEntity
 			case "home": home = new HomeView();
 			case "search": search = new SearchView();
 			case "detail-cardapio": detail_cardapio = new CardapioView();
+			case "dashboard-cardapio": dashboard_cardapio = new DashboardCardapio();
 		}
 		
 		

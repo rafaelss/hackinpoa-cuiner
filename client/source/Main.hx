@@ -16,7 +16,7 @@ class Main
 	
 	static function main():Void
 	{
-		CuinerModel.Local = true;		
+			
 		Browser.window.onload = 
 		function(ev:Dynamic):Void
 		{

@@ -127,63 +127,20 @@ p
 	  
 	  .s1
 	  {
-		  .header
-		  {
-			  height:305px;
-			  background-size: cover;
-			  background-position: center;
-			  background-image: url("../images/detail/header-churras.jpg");
+		  background-color: #9c9ba0;
+		  height: 40px;  
+		  
+	  }
+	  
+	  .s4
+	  {
+		  background-color: #fff;
+		  
+		  img 
+		  { 
+			 left: 160px;
+			 cursor:pointer;
 		  }
-		  
-		  .title
-		  {
-			  margin-top: -80px;
-			  margin-bottom: 20px;
-			  height: 80px;
-			  background-color: rgba(0,0,0,0.8);
-			  
-			  .user-photo
-			  {
-				  left: 25px;
-				  top: 25px;
-				  width: 120px;
-				  height: 120px;				  
-			  }
-			  
-			  .fields
-			  {
-				  top: 240px;
-				  left: 160px;		
-				  
-				  .icon {  margin-right: 5px; }
-				  .count { margin-top: 0px; }
-			  }
-			  
-			  button
-			  {
-				  top: -17px;
-				  left: 730px;
-				  width:300px;
-				  margin-bottom: 0px;
-			  }
-		  }
-		  
-		  .bio
-		  {
-			  left: 170px;
-			  width: 500px;
-			  margin-bottom: 40px;
-			  
-			  p:nth-child(1) { margin-bottom: 10px; }
-		  }
-		  
-		  .gallery
-		  {
-			  left: 170px;
-			  margin-bottom: 30px;
-		  }
-		  
-		  
 	  }
 	  
 	  .s2
@@ -222,21 +179,7 @@ p
 		  }
 	  }
 	  
-	  .s4
-	  {
-		  background-color: #9c9ba0;
-		  div
-		  {
-			  left: 50%;
-			  margin-left: -400px;
-			  width: 800px;
-			  padding: 20px;
-			  input:nth-child(1) { width:290px; }
-			  input:nth-child(2) { width:135px; }
-			  input:nth-child(3) { width:135px; }
-			  button { top: 2px; }
-		  }
-	  }
+	  
 	  
   }
  

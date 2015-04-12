@@ -289,6 +289,9 @@ class CuinerController extends CuinerEntity
 				mv.Hide();
 				Timer.delay(function() { Browser.window.location.href = CuinerModel.Root; }, 200);
 				
+			case "bt-cardapio-add":
+				Browser.window.location.href = CuinerModel.Root;
+				
 		}
 	}
 	

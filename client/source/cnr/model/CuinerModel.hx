@@ -47,7 +47,7 @@ class CuinerModel
 	/**
 	 * Is Running Locally
 	 */
-	static public var Local  : Bool = true;
+	static public var Local  : Bool = false;
 	
 	/**
 	 * Root URL
@@ -75,6 +75,7 @@ class CuinerModel
 		
 		if (p == "") return "home";
 		if (p.indexOf("detail-cardapio") >= 0) return "detail-cardapio";
+		if (p.indexOf("dashboard-cardapio") >= 0) return "dashboard-cardapio";
 		if (p.indexOf("busca") >= 0) return "search";
 		return "";		
 	}

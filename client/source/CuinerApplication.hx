@@ -2,6 +2,7 @@ package;
 import cnr.controller.CuinerController;
 import cnr.model.CuinerModel;
 import cnr.view.CuinerView;
+import js.Browser;
 
 /**
  * ...
@@ -18,6 +19,7 @@ class CuinerApplication
 	public function new() 
 	{
 		instance = this;
+		CuinerModel.Local = Browser.window.location.href.indexOf("heroku") < 0;
 		untyped if (window.Model == null) window.Model = cnr.model.CuinerModel;		
 		untyped if (window.WS == null) window.WS = cnr.model.CuinerWS;
 	}
@@ -27,7 +29,7 @@ class CuinerApplication
 	 */
 	public function Run():Void
 	{
-		trace("CuinerApplication> Run");
+		trace("CuinerApplication> Run local["+CuinerModel.Local+"]");
 		view = new CuinerView();
 		controller = new CuinerController();
 		controller.LoadUserData();

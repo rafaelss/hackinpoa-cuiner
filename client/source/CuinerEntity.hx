@@ -39,6 +39,7 @@ class CuinerEntity
 			"container-search",
 			"bt-buy-product",
 			"bt-shop-ok",
+			"bt-cardapio-add",
 			];
 			for (i in 0...btl.length) 
 			{ 

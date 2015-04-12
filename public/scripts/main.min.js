@@ -7,13 +7,14 @@ function $extend(from, fields) {
 }
 var CuinerApplication = function() {
 	CuinerApplication.instance = this;
+	cnr.model.CuinerModel.Local = window.location.href.indexOf("heroku") < 0;
 	if(window.Model == null) window.Model = cnr.model.CuinerModel;
 	if(window.WS == null) window.WS = cnr.model.CuinerWS;
 };
 CuinerApplication.__name__ = true;
 CuinerApplication.prototype = {
 	Run: function() {
-		console.log("CuinerApplication> Run");
+		console.log("CuinerApplication> Run local[" + Std.string(cnr.model.CuinerModel.Local) + "]");
 		this.view = new cnr.view.CuinerView();
 		this.controller = new cnr.controller.CuinerController();
 		this.controller.LoadUserData();
@@ -26,7 +27,7 @@ var CuinerEntity = function(p_mouse_ev) {
 	if(p_mouse_ev == null) p_mouse_ev = false;
 	if(p_mouse_ev) {
 		var bt;
-		var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-publish-bottom","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks","field-menu-user-photo","container-search","bt-buy-product","bt-shop-ok"];
+		var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-publish-bottom","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks","field-menu-user-photo","container-search","bt-buy-product","bt-shop-ok","bt-cardapio-add"];
 		var _g1 = 0;
 		var _g = btl.length;
 		while(_g1 < _g) {
@@ -62,7 +63,6 @@ HxOverrides.substr = function(s,pos,len) {
 var Main = function() { };
 Main.__name__ = true;
 Main.main = function() {
-	cnr.model.CuinerModel.Local = true;
 	window.onload = function(ev) {
 		console.log("Cuiner> Initialize root[" + cnr.model.CuinerModel.get_Root() + "] path[" + cnr.model.CuinerModel.get_Path() + "]");
 		Main.app = new CuinerApplication();
@@ -269,6 +269,9 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 				window.location.href = cnr.model.CuinerModel.get_Root();
 			},200);
 			break;
+		case "bt-cardapio-add":
+			window.location.href = cnr.model.CuinerModel.get_Root();
+			break;
 		}
 	}
 });
@@ -358,6 +361,7 @@ cnr.model.CuinerModel.get_Page = function() {
 	var p = cnr.model.CuinerModel.get_Path().toLowerCase();
 	if(p == "") return "home";
 	if(p.indexOf("detail-cardapio") >= 0) return "detail-cardapio";
+	if(p.indexOf("dashboard-cardapio") >= 0) return "dashboard-cardapio";
 	if(p.indexOf("busca") >= 0) return "search";
 	return "";
 };
@@ -379,6 +383,9 @@ cnr.view.CuinerView = function() {
 		break;
 	case "detail-cardapio":
 		this.detail_cardapio = new cnr.view.detail.CardapioView();
+		break;
+	case "dashboard-cardapio":
+		this.dashboard_cardapio = new cnr.view.dashboard.DashboardCardapio();
 		break;
 	}
 };
@@ -457,6 +464,21 @@ cnr.view.ModalView.prototype = $extend(CuinerEntity.prototype,{
 	,SetRegisterError: function(p_msg) {
 		var el = window.document.getElementById("lb-register-error");
 		el.innerHTML = p_msg;
+	}
+});
+cnr.view.dashboard = {};
+cnr.view.dashboard.DashboardCardapio = function() {
+	CuinerEntity.call(this,true);
+};
+cnr.view.dashboard.DashboardCardapio.__name__ = true;
+cnr.view.dashboard.DashboardCardapio.__super__ = CuinerEntity;
+cnr.view.dashboard.DashboardCardapio.prototype = $extend(CuinerEntity.prototype,{
+	OnButtonClick: function(p_event) {
+		var ev = p_event;
+		var el = ev.currentTarget;
+		console.log("DashboardCardapio> Clicked [" + el.id + "]");
+		var _g = el.id;
+		this.get_application().controller.ProcessClicks(el.id);
 	}
 });
 cnr.view.detail = {};
@@ -631,6 +653,6 @@ cnr.model.CuinerWS.UserLogout = "http://cuiner.herokuapp.com/user/logout";
 cnr.model.CuinerWS.UserRegister = "http://cuiner.herokuapp.com/users";
 cnr.model.CuinerWS.Search = "http://cuiner.herokuapp.com/search";
 cnr.model.CuinerModel.Logged = false;
-cnr.model.CuinerModel.Local = true;
+cnr.model.CuinerModel.Local = false;
 Main.main();
 })();
