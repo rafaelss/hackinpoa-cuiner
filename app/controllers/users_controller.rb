@@ -19,6 +19,12 @@ class UsersController < ApplicationController
     redirect_to current_user_url
   end
 
+  def logout
+    session[:user_id] = nil
+    session.delete(:user_id)
+    head :ok
+  end
+
   protected
 
   def allowed_params

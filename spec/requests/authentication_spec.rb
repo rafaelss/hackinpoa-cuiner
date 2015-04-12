@@ -21,4 +21,24 @@ RSpec.describe "Authentication", type: :request do
       end
     end
   end
+
+  describe "POST /user/logout" do
+    context "when user is not logged in" do
+      it "returns 403" do
+        post logout_user_path
+
+        expect(response).to have_http_status(403)
+      end
+    end
+
+    context "when user is logged in" do
+      before { sign_in }
+
+      it "logs the user out" do
+        post logout_user_path
+
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
 end
