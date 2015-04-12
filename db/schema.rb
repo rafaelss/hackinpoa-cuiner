@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411230736) do
+ActiveRecord::Schema.define(version: 20150411232448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "absences", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "at",         null: false
+    t.string   "shift",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "absences", ["user_id"], name: "index_absences_on_user_id", using: :btree
 
   create_table "menus", force: :cascade do |t|
     t.integer  "user_id",                                                                  null: false

@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :menus
+  has_many :absences
 
   validates_presence_of :first_name, :last_name, :email, :public_id
   validates_uniqueness_of :email, allow_blank: true
