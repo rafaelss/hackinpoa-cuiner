@@ -184,7 +184,7 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 		var user_name = window.document.getElementById("field-menu-user-name");
 		var user_photo = window.document.getElementById("field-menu-user-photo");
 		if(user_name != null) user_name.innerText = cnr.model.CuinerModel.UserLoginData.name;
-		if(user_photo != null) user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
+		if(user_photo != null) user_photo.src = cnr.model.CuinerModel.UserLoginData.photo_url;
 	}
 	,HideLoginData: function() {
 		var el0;
