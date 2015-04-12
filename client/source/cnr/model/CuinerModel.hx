@@ -25,6 +25,11 @@ class CuinerWS
 	 * Registers a new user.
 	 */	
 	static public var UserRegister : String = "http://cuiner.herokuapp.com/users";
+	
+	/**
+	 * Performs food search.
+	 */
+	static public var Search : String = "http://cuiner.herokuapp.com/search";
 }
 
 /**
@@ -71,6 +76,7 @@ class CuinerModel
 		if (p == "") return "home";
 		if (p.indexOf("dashboard/user") >= 0) return "register-user";
 		if (p.indexOf("dashboard/menu") >= 0) return "register-menu";
+		if (p.indexOf("search") >= 0) return "search";
 		return "";		
 	}
 	

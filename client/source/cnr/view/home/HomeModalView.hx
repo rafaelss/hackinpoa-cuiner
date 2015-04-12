@@ -31,8 +31,19 @@ class HomeModalView extends CuinerEntity
 	{
 		var res : Dynamic = { };
 		var f : InputElement;		
-		f = cast Browser.document.getElementById("field-login-email"); res.email = f.value;
-		f = cast Browser.document.getElementById("field-login-password"); res.password = f.value;		
+		f = cast Browser.document.getElementById("field-login-email"); 		res.email = f.value;
+		f = cast Browser.document.getElementById("field-login-password"); 	res.password = f.value;		
+		return res;
+	}
+	
+	public var SearchData(get_SearchData, never):Dynamic;
+	private function get_SearchData():Dynamic	
+	{
+		var res : Dynamic = { };
+		var f : InputElement;		
+		f = cast Browser.document.getElementById("field-search-food"); 		    res.q  = f.value;
+		f = cast Browser.document.getElementById("field-search-price"); 	    res.price = f.value;	
+		f = cast Browser.document.getElementById("field-search-count"); 	    res.persons = f.value;	
 		return res;
 	}
 

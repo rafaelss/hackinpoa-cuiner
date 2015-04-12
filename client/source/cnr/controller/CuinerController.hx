@@ -4,6 +4,8 @@ import cnr.model.CuinerModel;
 import haxe.Json;
 import haxe.Timer;
 import js.Browser;
+import js.html.Element;
+import js.html.ImageElement;
 
 /**
  * ...
@@ -39,13 +41,26 @@ class CuinerController extends CuinerEntity
 				trace("CuinerController> LoadUserData Success");				
 				CuinerModel.UserLoginData = p_data.user; 
 				trace(CuinerModel.UserLoginData);
-				application.view.home.ShowLoginData();
+				ShowLoginData();
 			}
 			else
 			{
 				trace("CuinerController> LoadUserData Failed");
-				application.view.home.HideLoginData();
+				HideLoginData();
 			}
+			OnUserDataLoaded();
+		}
+	}
+	
+	public function OnUserDataLoaded():Void
+	{
+		switch(CuinerModel.Page)
+		{
+			case "home":
+				
+			case "search":				
+			trace("CuinerController> UserDataLoaded " + Browser.window.location.search);
+			ProcessSearch(Browser.window.location.search);
 		}
 	}
 	
@@ -73,7 +88,7 @@ class CuinerController extends CuinerEntity
 					CuinerModel.UserLoginData = CuinerModel.UserLoginData.user;
 					trace(CuinerModel.UserLoginData);
 					application.view.home.modal.Hide();
-					application.view.home.ShowLoginData();
+					ShowLoginData();
 					
 				}
 			}
@@ -104,7 +119,7 @@ class CuinerController extends CuinerEntity
 					CuinerModel.UserLoginData = CuinerModel.UserLoginData.user;
 					trace(CuinerModel.UserLoginData);
 					application.view.home.modal.Hide();
-					application.view.home.ShowLoginData();
+					ShowLoginData();
 					
 				}
 			}
@@ -112,10 +127,41 @@ class CuinerController extends CuinerEntity
 	}
 	
 	/**
+	 * 
+	 * @param	p_data
+	 */
+	public function ProcessSearch(p_data:String):Void
+	{
+		var url : String = CuinerWS.Search+p_data;
+		
+		trace("CuinerController> search[" + url + "]");
+		
+		Web.Send(url, p_data, function(r:String, p:Float)
+		{
+			if (p >= 1)
+			{
+				if (r == null)
+				{
+					trace("CuinerController> Search Error");
+					
+				}
+				else 
+				{
+					trace("CuinerController> Search Success");
+					var res : Dynamic = Json.parse(r);
+					trace(res);
+										
+				}
+			}
+		},"GET");
+	}
+	
+	/**
 	 * Logout 
 	 */
 	public function LogOut():Void
 	{
+		
 		Web.Send(CuinerWS.UserLogout, null, function(r:String, p:Float)
 		{
 			
@@ -132,10 +178,61 @@ class CuinerController extends CuinerEntity
 				{
 					trace("CuinerController> Logout Success");					
 					trace(r);
-					application.view.home.HideLoginData();
+					HideLoginData();
 				}
 			}
 		});
+	}
+	
+	/**
+	 * 
+	 */
+	public function ShowLoginData():Void
+	{
+		var el0 : Element;
+		var el1 : Element;
+		
+		el0 = Browser.document.getElementById("menu-login");
+		if (el0 != null)
+		{
+			el0.style.display = "block";
+			Timer.delay(function() { el0.style.opacity = "1.0"; }, 10);
+		}
+		
+		el1 = Browser.document.getElementById("menu-logout");
+		if (el1 != null)
+		{
+			el1.style.opacity = "0.0";
+			Timer.delay(function() { el1.style.display = "none";  }, 202);
+		}
+		
+		var user_name : Element = Browser.document.getElementById("field-menu-user-name");
+		var user_photo : ImageElement = cast Browser.document.getElementById("field-menu-user-photo");
+		if(user_name!=null) user_name.innerText = CuinerModel.UserLoginData.name;
+		if(user_photo!=null)user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
+	}
+	
+	/**
+	 * 
+	 */
+	public function HideLoginData():Void
+	{
+		var el0 : Element;
+		var el1 : Element;
+		
+		el0 = Browser.document.getElementById("menu-logout");
+		if (el0 != null)
+		{
+			el0.style.display = "block";
+			Timer.delay(function() { el0.style.opacity = "1.0"; }, 10);
+		}
+		
+		el1 = Browser.document.getElementById("menu-login");
+		if (el1 != null)
+		{
+			el1.style.opacity = "0.0";
+			Timer.delay(function() { el1.style.display = "none";  }, 202);
+		}
 	}
 	
 	

@@ -10,6 +10,7 @@ var CuinerApplication = function() {
 	if(window.Model == null) window.Model = cnr.model.CuinerModel;
 	if(window.WS == null) window.WS = cnr.model.CuinerWS;
 };
+CuinerApplication.__name__ = true;
 CuinerApplication.prototype = {
 	Run: function() {
 		console.log("CuinerApplication> Run");
@@ -23,12 +24,14 @@ CuinerApplication.prototype = {
 };
 var CuinerEntity = function() {
 };
+CuinerEntity.__name__ = true;
 CuinerEntity.prototype = {
 	get_application: function() {
 		return CuinerApplication.instance;
 	}
 };
 var HxOverrides = function() { };
+HxOverrides.__name__ = true;
 HxOverrides.substr = function(s,pos,len) {
 	if(pos != null && pos != 0 && len != null && len < 0) return "";
 	if(len == null) len = s.length;
@@ -39,6 +42,7 @@ HxOverrides.substr = function(s,pos,len) {
 	return s.substr(pos,len);
 };
 var Main = function() { };
+Main.__name__ = true;
 Main.main = function() {
 	cnr.model.CuinerModel.Local = true;
 	window.onload = function(ev) {
@@ -47,7 +51,13 @@ Main.main = function() {
 		Main.app.Run();
 	};
 };
+var Std = function() { };
+Std.__name__ = true;
+Std.string = function(s) {
+	return js.Boot.__string_rec(s,"");
+};
 var StringTools = function() { };
+StringTools.__name__ = true;
 StringTools.replace = function(s,sub,by) {
 	return s.split(sub).join(by);
 };
@@ -56,6 +66,7 @@ cnr.controller = {};
 cnr.controller.CuinerController = function() {
 	CuinerEntity.call(this);
 };
+cnr.controller.CuinerController.__name__ = true;
 cnr.controller.CuinerController.__super__ = CuinerEntity;
 cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 	LoadUserData: function() {
@@ -68,11 +79,23 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 				console.log("CuinerController> LoadUserData Success");
 				cnr.model.CuinerModel.UserLoginData = p_data.user;
 				console.log(cnr.model.CuinerModel.UserLoginData);
-				this.get_application().view.home.ShowLoginData();
+				this.ShowLoginData();
 			} else {
 				console.log("CuinerController> LoadUserData Failed");
-				this.get_application().view.home.HideLoginData();
+				this.HideLoginData();
 			}
+			this.OnUserDataLoaded();
+		}
+	}
+	,OnUserDataLoaded: function() {
+		var _g = cnr.model.CuinerModel.get_Page();
+		switch(_g) {
+		case "home":
+			break;
+		case "search":
+			console.log("CuinerController> UserDataLoaded " + window.location.search);
+			this.ProcessSearch(window.location.search);
+			break;
 		}
 	}
 	,ProcessLogin: function(p_data) {
@@ -90,7 +113,7 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 					cnr.model.CuinerModel.UserLoginData = cnr.model.CuinerModel.UserLoginData.user;
 					console.log(cnr.model.CuinerModel.UserLoginData);
 					_g.get_application().view.home.modal.Hide();
-					_g.get_application().view.home.ShowLoginData();
+					_g.ShowLoginData();
 				}
 			}
 		});
@@ -110,10 +133,23 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 					cnr.model.CuinerModel.UserLoginData = cnr.model.CuinerModel.UserLoginData.user;
 					console.log(cnr.model.CuinerModel.UserLoginData);
 					_g.get_application().view.home.modal.Hide();
-					_g.get_application().view.home.ShowLoginData();
+					_g.ShowLoginData();
 				}
 			}
 		});
+	}
+	,ProcessSearch: function(p_data) {
+		var url = cnr.model.CuinerWS.Search + p_data;
+		console.log("CuinerController> search[" + url + "]");
+		cnr.core.Web.Send(url,p_data,function(r,p) {
+			if(p >= 1) {
+				if(r == null) console.log("CuinerController> Search Error"); else {
+					console.log("CuinerController> Search Success");
+					var res = JSON.parse(r);
+					console.log(res);
+				}
+			}
+		},"GET");
 	}
 	,LogOut: function() {
 		var _g = this;
@@ -123,14 +159,55 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 				if(r == null) console.log("CuinerController> Logout Error"); else {
 					console.log("CuinerController> Logout Success");
 					console.log(r);
-					_g.get_application().view.home.HideLoginData();
+					_g.HideLoginData();
 				}
 			}
 		});
 	}
+	,ShowLoginData: function() {
+		var el0;
+		var el1;
+		el0 = window.document.getElementById("menu-login");
+		if(el0 != null) {
+			el0.style.display = "block";
+			haxe.Timer.delay(function() {
+				el0.style.opacity = "1.0";
+			},10);
+		}
+		el1 = window.document.getElementById("menu-logout");
+		if(el1 != null) {
+			el1.style.opacity = "0.0";
+			haxe.Timer.delay(function() {
+				el1.style.display = "none";
+			},202);
+		}
+		var user_name = window.document.getElementById("field-menu-user-name");
+		var user_photo = window.document.getElementById("field-menu-user-photo");
+		if(user_name != null) user_name.innerText = cnr.model.CuinerModel.UserLoginData.name;
+		if(user_photo != null) user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
+	}
+	,HideLoginData: function() {
+		var el0;
+		var el1;
+		el0 = window.document.getElementById("menu-logout");
+		if(el0 != null) {
+			el0.style.display = "block";
+			haxe.Timer.delay(function() {
+				el0.style.opacity = "1.0";
+			},10);
+		}
+		el1 = window.document.getElementById("menu-login");
+		if(el1 != null) {
+			el1.style.opacity = "0.0";
+			haxe.Timer.delay(function() {
+				el1.style.display = "none";
+			},202);
+		}
+	}
 });
 cnr.core = {};
 cnr.core.Web = function() { };
+cnr.core.Web.__name__ = true;
 cnr.core.Web.Process = function(p_url,p_method,p_data,p_callback) {
 	if(window.Web == null) window.Web = cnr.core.Web;
 	var url = StringTools.replace(p_url,"./",cnr.core.Web.Root);
@@ -192,7 +269,9 @@ cnr.core.Web.Send = function(p_url,p_data,p_callback,p_method) {
 };
 cnr.model = {};
 cnr.model.CuinerWS = function() { };
+cnr.model.CuinerWS.__name__ = true;
 cnr.model.CuinerModel = function() { };
+cnr.model.CuinerModel.__name__ = true;
 cnr.model.CuinerModel.get_Root = function() {
 	if(cnr.model.CuinerModel.Local) return "http://localhost:3000/"; else return "http://cuiner.herokuapp.com/";
 };
@@ -205,6 +284,7 @@ cnr.model.CuinerModel.get_Page = function() {
 	if(p == "") return "home";
 	if(p.indexOf("dashboard/user") >= 0) return "register-user";
 	if(p.indexOf("dashboard/menu") >= 0) return "register-menu";
+	if(p.indexOf("search") >= 0) return "search";
 	return "";
 };
 cnr.model.CuinerModel.get_IsLogged = function() {
@@ -219,8 +299,12 @@ cnr.view.CuinerView = function() {
 	case "home":
 		this.home = new cnr.view.home.HomeView();
 		break;
+	case "search":
+		this.search = new cnr.view.search.SearchView();
+		break;
 	}
 };
+cnr.view.CuinerView.__name__ = true;
 cnr.view.CuinerView.__super__ = CuinerEntity;
 cnr.view.CuinerView.prototype = $extend(CuinerEntity.prototype,{
 });
@@ -235,6 +319,7 @@ cnr.view.home.HomeModalView = function() {
 		_g.Hide();
 	};
 };
+cnr.view.home.HomeModalView.__name__ = true;
 cnr.view.home.HomeModalView.__super__ = CuinerEntity;
 cnr.view.home.HomeModalView.prototype = $extend(CuinerEntity.prototype,{
 	get_RegisterData: function() {
@@ -257,6 +342,17 @@ cnr.view.home.HomeModalView.prototype = $extend(CuinerEntity.prototype,{
 		res.email = f.value;
 		f = window.document.getElementById("field-login-password");
 		res.password = f.value;
+		return res;
+	}
+	,get_SearchData: function() {
+		var res = { };
+		var f;
+		f = window.document.getElementById("field-search-food");
+		res.q = f.value;
+		f = window.document.getElementById("field-search-price");
+		res.price = f.value;
+		f = window.document.getElementById("field-search-count");
+		res.persons = f.value;
 		return res;
 	}
 	,Show: function(p_mode) {
@@ -302,41 +398,10 @@ cnr.view.home.HomeView = function() {
 		bt.onclick = $bind(this,this.OnButtonClick);
 	}
 };
+cnr.view.home.HomeView.__name__ = true;
 cnr.view.home.HomeView.__super__ = CuinerEntity;
 cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
-	ShowLoginData: function() {
-		var el0;
-		var el1;
-		el0 = window.document.getElementById("menu-login");
-		el0.style.display = "block";
-		haxe.Timer.delay(function() {
-			el0.style.opacity = "1.0";
-		},10);
-		el1 = window.document.getElementById("menu-logout");
-		el1.style.opacity = "0.0";
-		haxe.Timer.delay(function() {
-			el1.style.display = "none";
-		},202);
-		var user_name = window.document.getElementById("field-menu-user-name");
-		var user_photo = window.document.getElementById("field-menu-user-photo");
-		user_name.innerText = cnr.model.CuinerModel.UserLoginData.name;
-		user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
-	}
-	,HideLoginData: function() {
-		var el0;
-		var el1;
-		el0 = window.document.getElementById("menu-logout");
-		el0.style.display = "block";
-		haxe.Timer.delay(function() {
-			el0.style.opacity = "1.0";
-		},10);
-		el1 = window.document.getElementById("menu-login");
-		el1.style.opacity = "0.0";
-		haxe.Timer.delay(function() {
-			el1.style.display = "none";
-		},202);
-	}
-	,OnButtonClick: function(p_event) {
+	OnButtonClick: function(p_event) {
 		var ev = p_event;
 		var el = ev.currentTarget;
 		console.log("HomeView> Clicked [" + el.id + "]");
@@ -351,6 +416,11 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 			this.modal.Show("modal-login");
 			break;
 		case "bt-search":
+			var search_url = "search.html?";
+			search_url += "q=" + Std.string(this.modal.get_SearchData().q);
+			if(this.modal.get_SearchData().price != "") search_url += "&price=" + Std.string(this.modal.get_SearchData().price);
+			if(this.modal.get_SearchData().persons != "") search_url += "&persons=" + Std.string(this.modal.get_SearchData().persons);
+			window.location.href = search_url;
 			break;
 		case "bt-form-register":
 			console.log(this.modal.get_RegisterData());
@@ -363,6 +433,34 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 		}
 	}
 });
+cnr.view.search = {};
+cnr.view.search.SearchView = function() {
+	CuinerEntity.call(this);
+	console.log("SearchView> ctor");
+	var bt;
+	var btl = [];
+	var _g1 = 0;
+	var _g = btl.length;
+	while(_g1 < _g) {
+		var i = _g1++;
+		bt = window.document.getElementById(btl[i]);
+		if(bt == null) {
+			console.log("[" + btl[i] + "]");
+			continue;
+		}
+		bt.onclick = $bind(this,this.OnButtonClick);
+	}
+};
+cnr.view.search.SearchView.__name__ = true;
+cnr.view.search.SearchView.__super__ = CuinerEntity;
+cnr.view.search.SearchView.prototype = $extend(CuinerEntity.prototype,{
+	OnButtonClick: function(p_event) {
+		var ev = p_event;
+		var el = ev.currentTarget;
+		console.log("SearchView> Clicked [" + el.id + "]");
+		var _g = el.id;
+	}
+});
 var haxe = {};
 haxe.Timer = function(time_ms) {
 	var me = this;
@@ -370,6 +468,7 @@ haxe.Timer = function(time_ms) {
 		me.run();
 	},time_ms);
 };
+haxe.Timer.__name__ = true;
 haxe.Timer.delay = function(f,time_ms) {
 	var t = new haxe.Timer(time_ms);
 	t.run = function() {
@@ -388,8 +487,79 @@ haxe.Timer.prototype = {
 	}
 };
 var js = {};
+js.Boot = function() { };
+js.Boot.__name__ = true;
+js.Boot.__string_rec = function(o,s) {
+	if(o == null) return "null";
+	if(s.length >= 5) return "<...>";
+	var t = typeof(o);
+	if(t == "function" && (o.__name__ || o.__ename__)) t = "object";
+	switch(t) {
+	case "object":
+		if(o instanceof Array) {
+			if(o.__enum__) {
+				if(o.length == 2) return o[0];
+				var str = o[0] + "(";
+				s += "\t";
+				var _g1 = 2;
+				var _g = o.length;
+				while(_g1 < _g) {
+					var i = _g1++;
+					if(i != 2) str += "," + js.Boot.__string_rec(o[i],s); else str += js.Boot.__string_rec(o[i],s);
+				}
+				return str + ")";
+			}
+			var l = o.length;
+			var i1;
+			var str1 = "[";
+			s += "\t";
+			var _g2 = 0;
+			while(_g2 < l) {
+				var i2 = _g2++;
+				str1 += (i2 > 0?",":"") + js.Boot.__string_rec(o[i2],s);
+			}
+			str1 += "]";
+			return str1;
+		}
+		var tostr;
+		try {
+			tostr = o.toString;
+		} catch( e ) {
+			return "???";
+		}
+		if(tostr != null && tostr != Object.toString) {
+			var s2 = o.toString();
+			if(s2 != "[object Object]") return s2;
+		}
+		var k = null;
+		var str2 = "{\n";
+		s += "\t";
+		var hasp = o.hasOwnProperty != null;
+		for( var k in o ) {
+		if(hasp && !o.hasOwnProperty(k)) {
+			continue;
+		}
+		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
+			continue;
+		}
+		if(str2.length != 2) str2 += ", \n";
+		str2 += s + k + " : " + js.Boot.__string_rec(o[k],s);
+		}
+		s = s.substring(1);
+		str2 += "\n" + s + "}";
+		return str2;
+	case "function":
+		return "<function>";
+	case "string":
+		return o;
+	default:
+		return String(o);
+	}
+};
 var $_, $fid = 0;
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $fid++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = function(){ return f.method.apply(f.scope, arguments); }; f.scope = o; f.method = m; o.hx__closures__[m.__id__] = f; } return f; }
+String.__name__ = true;
+Array.__name__ = true;
 var q = window.jQuery;
 js.JQuery = q;
 cnr.core.Web.Root = "";
@@ -397,6 +567,7 @@ cnr.model.CuinerWS.User = "http://cuiner.herokuapp.com/user";
 cnr.model.CuinerWS.UserLogin = "http://cuiner.herokuapp.com/user/authenticate";
 cnr.model.CuinerWS.UserLogout = "http://cuiner.herokuapp.com/user/logout";
 cnr.model.CuinerWS.UserRegister = "http://cuiner.herokuapp.com/users";
+cnr.model.CuinerWS.Search = "http://cuiner.herokuapp.com/search";
 cnr.model.CuinerModel.Logged = false;
 cnr.model.CuinerModel.Local = true;
 Main.main();
