@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :menus, dependent: :destroy
   has_many :absences, dependent: :destroy
 
-  validates_presence_of :name, :email, :public_id
+  validates_presence_of :name, :email, :phone, :public_id
   validates_uniqueness_of :email, allow_blank: true
 
   before_validation :set_public_id, on: :create

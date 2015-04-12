@@ -1,9 +1,9 @@
 User.all.map(&:destroy)
 
 users = User.create!([
-  { name: "Eduardo Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123" },
-  { name: "João de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123" },
-  { name: "Rafael Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123" }
+  { name: "Eduardo Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123", phone: "5187346543" },
+  { name: "João de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123", phone: "5198231234" },
+  { name: "Rafael Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123", phone: "5197234474" }
 ])
 
 menus = Menu.create!([
