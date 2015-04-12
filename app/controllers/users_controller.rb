@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     unauthorized! unless user && user.authenticate(params[:password])
 
     session[:user_id] = user.public_id
-    redirect_to current_user_url
+    head :ok
   end
 
   protected
