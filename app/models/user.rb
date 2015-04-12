@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
-  has_many :menus
-  has_many :absences
+  has_many :menus, dependent: :destroy
+  has_many :absences, dependent: :destroy
 
   validates_presence_of :name, :email, :public_id
   validates_uniqueness_of :email, allow_blank: true

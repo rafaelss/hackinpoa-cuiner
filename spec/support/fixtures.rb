@@ -20,4 +20,17 @@ module Fixtures
 
     Absence.create!(attributes)
   end
+
+  def create_menu(attributes = {})
+    attributes.reverse_merge!(
+      name: "foo",
+      price: 1.99,
+      price_per_person: 0.5,
+      tags: ["bar", "baz"]
+    )
+
+    attributes[:user_id] ||= create_user.id
+
+    Menu.create!(attributes)
+  end
 end

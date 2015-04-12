@@ -9,6 +9,7 @@ gem 'bcrypt', '3.1.10'
 gem 'responders', '2.1.0'
 gem 'active_model_serializers', '0.9.3'
 gem 'rack-cors', '0.3.1', require: 'rack/cors'
+gem 'algoliasearch-rails', '1.11.18'
 
 group :development, :test do
   gem 'byebug', '4.0.5'

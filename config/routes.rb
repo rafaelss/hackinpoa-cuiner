@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     get "/user", to: "current_user#show", as: :current_user
     resources :menus, only: [:index, :create, :show]
     resources :absences, only: [:index, :create]
+    get "/search", to: "search#index", as: :search
   end
 end
