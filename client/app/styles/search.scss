@@ -139,8 +139,10 @@ p
   }
 }
 
+
+
   
-.home
+.page
 {
   left: 0px;
   top: 0px;
@@ -150,175 +152,204 @@ p
 	  
 	  .s0
 	  {
-		  height: 500px;
-		  
-		  .background
-		  {	
-			  height: inherit;
-			 background-size: cover;
-			 background-position: center center;
-		  }
-		  
-		  .fade { height: inherit; background-color: rgba(0,0,0,0.6); }
-		  
+		  height: 90px;
+			  
 		  .logo
 		  {
-			left: 35%;
-			margin-left: -127px;
-			top: 1%;
-			height: 70px;
+			  left: 115px;
+			  top: 50%;
+			  height:50px;
+			  margin-top: -30px;
 		  }
 		  
-		  .caption
+		  .menu
 		  {
-			  width: 380px;
-			  height: 65px;
-			  left: 35%;
-			  margin-left: -220px;
-			  //background-color: #33f;
-			  bottom: 25%;
-		  }
-		  
-		  .dock-right
-		  {
-			  right:0px;
-			  bottom: 60px;
-			  width: 400px;
-			  height: 400px;
-			  
-			  .menu
-			  {
+			
+			  right: 0px;
+			  top: 50%;
+			  margin-top: -20px;
+			width: 350px;
+		    height:60px;
+			
+			a {  color: #9c9ba0; }
+			
+			span { user-select: none; }
+			
+			a:nth-child(1) 
+			{
+				margin-right: 10px;
+				span:nth-child(1) { top: 4px; margin-right: 5px; }
+				span:nth-child(2) { margin-right: 2px; }
+				span:nth-child(3) { top: 1px; }
+			}
+			a:nth-child(2) 
+			{
+				margin-right: 30px;
+			}
+			
+			.menu-logout
+			{			
+				top:15px;
+				right:35px;
+			}
 				
-				height:50px;
+			.menu-login
+			{			
+				top:15px;
+				right:35px;
 				
-				span { user-select: none; }
+				margin-top: -20px;
 				
 				a:nth-child(1) 
 				{
+					.user-photo
+					{
+						width:45px;
+						height: 25px;
+					}
 					margin-right: 10px;
 					span:nth-child(1) { top: 4px; margin-right: 5px; }
 					span:nth-child(2) { margin-right: 2px; }
 					span:nth-child(3) { top: 1px; }
-				}
-				a:nth-child(2) 
-				{
-					margin-right: 20px;
-				}
-				
-				.menu-logout
-				{			
-					top:15px;
-					right:35px;
-				}
-				
-				.menu-login
-				{			
-					top:15px;
-					right:35px;
 					
-					margin-top: -20px;
-					
-					a:nth-child(1) 
-					{
-						.user-photo
-						{
-							width:45px;
-							height: 25px;
-						}
-						margin-right: 10px;
-						span:nth-child(1) { top: 4px; margin-right: 5px; }
-						span:nth-child(2) { margin-right: 2px; }
-						span:nth-child(3) { top: 1px; }
-						
-						img:nth-child(1) { width: 45px; height: 45px; }
-						img:nth-child(2) { width: 45px; height: 45px; }
-					}					
-				}
-				
-			  }
-			  
-			.top
-			{
-				height: 275px;
-				margin-bottom: 10px;
-				background-color: rgba(0,0,0,0.4);
-				
-				.form
-				{
-					top: 20px;
-					left: 50%;
-					width: 305px;
-					margin-left: -148px;
-					padding-right:30px;
-					height: 100%;
-					//background-color: rgba(255,60,60,0.5);
-					
-					input:nth-child(1) { width: 260px; }
-					input:nth-child(2) { width: 260px; }
-					input:nth-child(3) { width: 105px; }
-					input:nth-child(4) { width: 105px; }
-					
-					
-					.c-field
-					{
-						height: 15px;
-						margin-bottom: 20px;
-					}
-					
-					.c-button-yellow
-					{
-						margin-left: 154px;
-						padding-top: 8px;
-						width: 137px;
-						height: 40px;
-					}
-					
-				}
-				
+					img:nth-child(1) { width: 45px; height: 45px; }
+					img:nth-child(2) { width: 45px; height: 45px; }
+				}					
 			}
 			
-			.footer
-			{
-				height: 125px;
-				background-color: rgba(0,0,0,0.4);				
-				
-				.content
-				{
-					top:20px;
-					left: 50%;
-					width: 245px;
-					margin-left: -122px;							
-					height: 100%;
-					//background-color: rgba(255,60,60,0.5);
-					
-					.t0 { margin-bottom: 10px; }
-					
-					.button
-					{
-						height:48px;
-					}
-					
-				}
-				
-			}
-			  
 		  }
 	  }
 	  
 	  .s1
 	  {
-		  height: 845px;
+		  padding-top: 20px;
+		  
+		  p:nth-child(1) { margin-bottom: 20px; }
+		  p:nth-child(2) { margin-bottom: 15px; }
+		  //height: 845px;
+		  
+		  .categories
+		  {
+			  left:50%;
+			  margin-left: -510px;
+			  width: 1040px;
+			  margin-bottom: 20px;
+			
+			  
+			  
+			.search-item
+			{
+				 
+				 width:320px; 
+				 height:290px;				 
+				 margin-right: 20px;
+				 margin-bottom: 20px;
+				
+				.background 
+				{ 
+					transition: background-size 0.5s ease-out;
+					width:inherit; 
+					height: inherit; 
+					background-size: 100%;
+					background-position: center;
+					background-image: url("../images/home/category/vegan.jpg"); 
+				}
+				
+				p:nth-child(1)
+				{
+					width:300px; 
+					height: 33px;
+					top: 0px;
+					padding-top: 13px;
+					padding-left: 20px;
+					background-color: rgba(0,0,0,0.4); 
+				}
+				
+				p:nth-child(2) 
+				{ 
+					width:300px; 
+					height: 30px;
+					top: 185px;
+					padding-top: 10px;
+					padding-left: 20px;
+					background-color: rgba(0,0,0,0.4);  
+				}
+				
+				.user
+				{
+					top: -115px;
+					left: -10px;
+					margin-right: 10px;
+					height: 40px;
+					//background-color: rgba(255,30,30,0.5);
+					span
+					{
+						margin-top: 18px;
+						margin-left: 10px;
+						margin-right: 10px;
+					}
+				}
+			}
+			
+			
+			.search-item:hover
+			{
+				.background { background-size: 120%; }
+			}
+			  
+		  }
 	  }
 	  
 	  .s2
 	  {
 		  height: 115px;
 		  background-color: #e2b250;
+		  div
+		  {
+			  left: 50%;
+			  top: 50%;
+			  width: 880px;
+			  height:50px;
+			  margin-left: -440px;
+			  margin-top: -25px;
+			  button { width:255px; height: 45px; }
+			  span { margin-right: 20px; }
+		  }
 	  }
 	  
 	  .s3
 	  {
-		  height: 70px;		  
+		  height: 70px;
+		  .logo 
+		  { 
+			  left: 160px;
+			  top: 50%;
+			  height: 50px;
+			  margin-top: -25px;
+		  }
+		  
+		  .footer 
+		  { 
+			  right: 120px;
+			  top: 50%;			  
+			  margin-top: -15px;
+		  }
+	  }
+	  
+	  .s4
+	  {
+		  background-color: #9c9ba0;
+		  div
+		  {
+			  left: 50%;
+			  margin-left: -400px;
+			  width: 800px;
+			  padding: 20px;
+			  input:nth-child(1) { width:290px; }
+			  input:nth-child(2) { width:135px; }
+			  input:nth-child(3) { width:135px; }
+			  button { top: 2px; }
+		  }
 	  }
 	  
   }

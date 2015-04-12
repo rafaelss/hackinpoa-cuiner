@@ -148,7 +148,14 @@ class CuinerController extends CuinerEntity
 				else 
 				{
 					trace("CuinerController> Search Success");
-					var res : Dynamic = Json.parse(r);
+					
+					var res : Dynamic = { menus:[] };
+					try
+					{
+						res = Json.parse(r);
+					}
+					catch (err:Dynamic) { }
+					
 					trace(res);
 										
 				}
