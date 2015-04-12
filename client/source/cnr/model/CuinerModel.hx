@@ -76,7 +76,7 @@ class CuinerModel
 		if (p == "") return "home";
 		if (p.indexOf("dashboard/user") >= 0) return "register-user";
 		if (p.indexOf("dashboard/menu") >= 0) return "register-menu";
-		if (p.indexOf("search") >= 0) return "search";
+		if (p.indexOf("busca") >= 0) return "search";
 		return "";		
 	}
 	

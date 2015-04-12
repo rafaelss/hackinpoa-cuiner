@@ -297,7 +297,7 @@ cnr.model.CuinerModel.get_Page = function() {
 	if(p == "") return "home";
 	if(p.indexOf("dashboard/user") >= 0) return "register-user";
 	if(p.indexOf("dashboard/menu") >= 0) return "register-menu";
-	if(p.indexOf("search") >= 0) return "search";
+	if(p.indexOf("busca") >= 0) return "search";
 	return "";
 };
 cnr.model.CuinerModel.get_IsLogged = function() {
@@ -417,7 +417,7 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 	OnButtonClick: function(p_event) {
 		var ev = p_event;
 		var el = ev.currentTarget;
-		var search_url = "search.html?";
+		var search_url = "busca.html?";
 		console.log("HomeView> Clicked [" + el.id + "]");
 		var _g = el.id;
 		switch(_g) {
@@ -479,7 +479,7 @@ cnr.view.search.SearchView.prototype = $extend(CuinerEntity.prototype,{
 	OnButtonClick: function(p_event) {
 		var ev = p_event;
 		var el = ev.currentTarget;
-		var search_url = "search.html?";
+		var search_url = "busca.html?";
 		console.log("SearchView> Clicked [" + el.id + "]");
 		var _g = el.id;
 		switch(_g) {
