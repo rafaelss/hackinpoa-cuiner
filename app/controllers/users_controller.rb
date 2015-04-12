@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   protected
 
   def allowed_params
-    params.permit(:name, :email, :password, :password_confirmation)
+    params.permit(:name, :email, :phone, :password, :password_confirmation)
   end
 
   def default_avatar_url

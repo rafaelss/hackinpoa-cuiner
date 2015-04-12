@@ -5,8 +5,10 @@ module Fixtures
       email: "foo@bar.com",
       phone: "5198765432",
       password: "aaa123",
-      password_confirmation: "aaa123"
+      password_confirmation: "aaa123",
     )
+
+    attributes[:photo_url] ||= "http://cloud.host/default/image.jpg"
 
     User.create!(attributes)
   end
