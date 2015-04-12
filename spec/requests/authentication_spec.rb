@@ -16,7 +16,8 @@ RSpec.describe "Authentication", type: :request do
       it "authenticates the user" do
         post authenticate_user_path, email: user.email, password: "aaa123"
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(302)
+        expect(response.headers["Location"]).to eq("http://www.example.com/user")
       end
     end
   end
