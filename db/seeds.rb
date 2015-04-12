@@ -2,9 +2,9 @@ User.connection.execute("TRUNCATE TABLE users")
 Menu.connection.execute("TRUNCATE TABLE menus")
 
 users = User.create!([
-  { first_name: "Eduardo", last_name: "Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123" },
-  { first_name: "João", last_name: "de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123" },
-  { first_name: "Rafael", last_name: "Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123" }
+  { name: "Eduardo Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123" },
+  { name: "João de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123" },
+  { name: "Rafael Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123" }
 ])
 
 menus = Menu.create!([
