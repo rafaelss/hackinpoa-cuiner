@@ -1,26 +1,14 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 User.connection.execute("TRUNCATE TABLE users")
 Menu.connection.execute("TRUNCATE TABLE menus")
 
 users = User.create!([
-  { name: "Eduardo", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123" },
-  { name: "João", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123" },
-  { name: "Rafael", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123" }
+  { first_name: "Eduardo", last_name: "Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123" },
+  { first_name: "João", last_name: "de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123" },
+  { first_name: "Rafael", last_name: "Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123" }
 ])
 
 menus = Menu.create!([
-  { user_id: users[0].id, name: "Massa Carbonara", price: 10.99, price_per_person: 2.99, number_of_people: [2, 10], tags: ["bacon"] }
+  { user_id: users[0].id, name: "Massa Carbonara", price: 10.99, price_per_person: 2.99, number_of_people: [2, 10], tags: ["bacon"] },
+  { user_id: users[1].id, name: "Churrasco", price: 45, price_per_person: 10, number_of_people: [5, 20], tags: ["picanha", "costela", "maminha", "vazio"] },
+  { user_id: users[2].id, name: "Comida Japonesa", price: 20, price_per_person: 20, number_of_people: [2, 5], tags: ["sushi", "sashimi"] }
 ])
-
-users.each do |user|
-  puts "-" * 80
-  ap user
-  ap user.menus
-end
