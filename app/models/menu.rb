@@ -11,8 +11,14 @@ class Menu < ActiveRecord::Base
 
   delegate :name, :bio, to: :user, prefix: true
 
-  algoliasearch(per_environment: true, disable_indexing: Rails.env.test?) do
+  algoliasearch(per_environment: true, disable_indexing: Rails.env.test?, synchronous: Rails.env.development?) do
     attribute :name, :tags, :user_name, :user_bio
+    attribute :price do
+      price.to_f
+    end
+    attribute :max_number_of_people do
+      number_of_people.max
+    end
   end
 
   def to_param
