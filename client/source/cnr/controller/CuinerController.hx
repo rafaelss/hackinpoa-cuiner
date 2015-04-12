@@ -1,6 +1,7 @@
 package cnr.controller;
 import cnr.core.Web;
 import cnr.model.CuinerModel;
+import cnr.view.home.HomeModalView;
 import haxe.Json;
 import haxe.Timer;
 import js.Browser;
@@ -59,7 +60,7 @@ class CuinerController extends CuinerEntity
 			case "home":
 				
 			case "search":				
-			trace("CuinerController> UserDataLoaded " + Browser.window.location.search);
+			trace("CuinerController> UserDataLoaded [" + Browser.window.location.search+"]");
 			ProcessSearch(Browser.window.location.search);
 		}
 	}
@@ -68,9 +69,9 @@ class CuinerController extends CuinerEntity
 	 * 
 	 * @param	p_data
 	 */
-	public function ProcessLogin(p_data:Dynamic):Void
+	public function ProcessLogin(p_data:Dynamic,p_modal:HomeModalView):Void
 	{
-		application.view.home.modal.SetLoginError("");
+		p_modal.SetLoginError("");
 		Web.Send(CuinerWS.UserLogin, p_data, function(r:String, p:Float)
 		{
 			if (p >= 1)
@@ -78,16 +79,16 @@ class CuinerController extends CuinerEntity
 				if (r == null)
 				{
 					trace("CuinerController> Login Error");
-					application.view.home.modal.SetLoginError("Erro Email ou Senha Errados!");
+					p_modal.SetLoginError("Erro Email ou Senha Errados!");
 				}
 				else 
 				{
 					trace("CuinerController> Login Success");
-					application.view.home.modal.SetLoginError("Sucesso!");
+					p_modal.SetLoginError("Sucesso!");
 					CuinerModel.UserLoginData = Json.parse(r);
 					CuinerModel.UserLoginData = CuinerModel.UserLoginData.user;
 					trace(CuinerModel.UserLoginData);
-					application.view.home.modal.Hide();
+					p_modal.Hide();
 					ShowLoginData();
 					
 				}
@@ -99,7 +100,7 @@ class CuinerController extends CuinerEntity
 	 * 
 	 * @param	p_data
 	 */
-	public function ProcessRegister(p_data:Dynamic):Void
+	public function ProcessRegister(p_data:Dynamic,p_modal:HomeModalView):Void
 	{
 		application.view.home.modal.SetRegisterError("");
 		Web.Send(CuinerWS.UserRegister, p_data, function(r:String, p:Float)
@@ -109,16 +110,16 @@ class CuinerController extends CuinerEntity
 				if (r == null)
 				{
 					trace("CuinerController> Register Error");
-					application.view.home.modal.SetRegisterError("Erro no Registro!");
+					p_modal.SetRegisterError("Erro no Registro!");
 				}
 				else 
 				{
 					trace("CuinerController> Register Success");
-					application.view.home.modal.SetRegisterError("Sucesso!");
+					p_modal.SetRegisterError("Sucesso!");
 					CuinerModel.UserLoginData = Json.parse(r);
 					CuinerModel.UserLoginData = CuinerModel.UserLoginData.user;
 					trace(CuinerModel.UserLoginData);
-					application.view.home.modal.Hide();
+					p_modal.Hide();
 					ShowLoginData();
 					
 				}
@@ -132,7 +133,7 @@ class CuinerController extends CuinerEntity
 	 */
 	public function ProcessSearch(p_data:String):Void
 	{
-		var url : String = CuinerWS.Search+p_data;
+		var url : String = CuinerWS.Search+"/"+p_data;
 		
 		trace("CuinerController> search[" + url + "]");
 		
@@ -148,7 +149,7 @@ class CuinerController extends CuinerEntity
 				else 
 				{
 					trace("CuinerController> Search Success");
-					
+					trace(r);
 					var res : Dynamic = { menus:[] };
 					try
 					{

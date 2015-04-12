@@ -93,58 +93,59 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 		case "home":
 			break;
 		case "search":
-			console.log("CuinerController> UserDataLoaded " + window.location.search);
+			console.log("CuinerController> UserDataLoaded [" + window.location.search + "]");
 			this.ProcessSearch(window.location.search);
 			break;
 		}
 	}
-	,ProcessLogin: function(p_data) {
+	,ProcessLogin: function(p_data,p_modal) {
 		var _g = this;
-		this.get_application().view.home.modal.SetLoginError("");
+		p_modal.SetLoginError("");
 		cnr.core.Web.Send(cnr.model.CuinerWS.UserLogin,p_data,function(r,p) {
 			if(p >= 1) {
 				if(r == null) {
 					console.log("CuinerController> Login Error");
-					_g.get_application().view.home.modal.SetLoginError("Erro Email ou Senha Errados!");
+					p_modal.SetLoginError("Erro Email ou Senha Errados!");
 				} else {
 					console.log("CuinerController> Login Success");
-					_g.get_application().view.home.modal.SetLoginError("Sucesso!");
+					p_modal.SetLoginError("Sucesso!");
 					cnr.model.CuinerModel.UserLoginData = JSON.parse(r);
 					cnr.model.CuinerModel.UserLoginData = cnr.model.CuinerModel.UserLoginData.user;
 					console.log(cnr.model.CuinerModel.UserLoginData);
-					_g.get_application().view.home.modal.Hide();
+					p_modal.Hide();
 					_g.ShowLoginData();
 				}
 			}
 		});
 	}
-	,ProcessRegister: function(p_data) {
+	,ProcessRegister: function(p_data,p_modal) {
 		var _g = this;
 		this.get_application().view.home.modal.SetRegisterError("");
 		cnr.core.Web.Send(cnr.model.CuinerWS.UserRegister,p_data,function(r,p) {
 			if(p >= 1) {
 				if(r == null) {
 					console.log("CuinerController> Register Error");
-					_g.get_application().view.home.modal.SetRegisterError("Erro no Registro!");
+					p_modal.SetRegisterError("Erro no Registro!");
 				} else {
 					console.log("CuinerController> Register Success");
-					_g.get_application().view.home.modal.SetRegisterError("Sucesso!");
+					p_modal.SetRegisterError("Sucesso!");
 					cnr.model.CuinerModel.UserLoginData = JSON.parse(r);
 					cnr.model.CuinerModel.UserLoginData = cnr.model.CuinerModel.UserLoginData.user;
 					console.log(cnr.model.CuinerModel.UserLoginData);
-					_g.get_application().view.home.modal.Hide();
+					p_modal.Hide();
 					_g.ShowLoginData();
 				}
 			}
 		});
 	}
 	,ProcessSearch: function(p_data) {
-		var url = cnr.model.CuinerWS.Search + p_data;
+		var url = cnr.model.CuinerWS.Search + "/" + p_data;
 		console.log("CuinerController> search[" + url + "]");
 		cnr.core.Web.Send(url,p_data,function(r,p) {
 			if(p >= 1) {
 				if(r == null) console.log("CuinerController> Search Error"); else {
 					console.log("CuinerController> Search Success");
+					console.log(r);
 					var res = { menus : []};
 					try {
 						res = JSON.parse(r);
@@ -397,7 +398,7 @@ cnr.view.home.HomeView = function() {
 	console.log("HomeView> ctor");
 	this.modal = new cnr.view.home.HomeModalView();
 	var bt;
-	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks"];
+	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks","field-menu-user-photo"];
 	var _g1 = 0;
 	var _g = btl.length;
 	while(_g1 < _g) {
@@ -436,11 +437,14 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 			break;
 		case "bt-form-register":
 			console.log(this.modal.get_RegisterData());
-			this.get_application().controller.ProcessRegister(this.modal.get_RegisterData());
+			this.get_application().controller.ProcessRegister(this.modal.get_RegisterData(),this.modal);
 			break;
 		case "bt-form-login":
 			console.log(this.modal.get_LoginData());
-			this.get_application().controller.ProcessLogin(this.modal.get_LoginData());
+			this.get_application().controller.ProcessLogin(this.modal.get_LoginData(),this.modal);
+			break;
+		case "field-menu-user-photo":
+			this.get_application().controller.LogOut();
 			break;
 		case "bt-category-vegan":case "bt-category-dessert":case "bt-category-thai":case "bt-category-sandwich":case "bt-category-pizza":case "bt-category-drinks":
 			var cat = el.id.split("-")[2];
@@ -454,8 +458,9 @@ cnr.view.search = {};
 cnr.view.search.SearchView = function() {
 	CuinerEntity.call(this);
 	console.log("SearchView> ctor");
+	this.modal = new cnr.view.home.HomeModalView();
 	var bt;
-	var btl = [];
+	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","field-menu-user-photo"];
 	var _g1 = 0;
 	var _g = btl.length;
 	while(_g1 < _g) {
@@ -474,8 +479,36 @@ cnr.view.search.SearchView.prototype = $extend(CuinerEntity.prototype,{
 	OnButtonClick: function(p_event) {
 		var ev = p_event;
 		var el = ev.currentTarget;
+		var search_url = "search.html?";
 		console.log("SearchView> Clicked [" + el.id + "]");
 		var _g = el.id;
+		switch(_g) {
+		case "bt-location":
+			break;
+		case "bt-register":
+			this.modal.Show("modal-register");
+			break;
+		case "bt-login":
+			this.modal.Show("modal-login");
+			break;
+		case "bt-search":
+			search_url += "q=" + Std.string(this.modal.get_SearchData().q);
+			if(this.modal.get_SearchData().price != "") search_url += "&price=" + Std.string(this.modal.get_SearchData().price);
+			if(this.modal.get_SearchData().persons != "") search_url += "&persons=" + Std.string(this.modal.get_SearchData().persons);
+			window.location.href = search_url;
+			break;
+		case "bt-form-register":
+			console.log(this.modal.get_RegisterData());
+			this.get_application().controller.ProcessRegister(this.modal.get_RegisterData(),this.modal);
+			break;
+		case "bt-form-login":
+			console.log(this.modal.get_LoginData());
+			this.get_application().controller.ProcessLogin(this.modal.get_LoginData(),this.modal);
+			break;
+		case "field-menu-user-photo":
+			this.get_application().controller.LogOut();
+			break;
+		}
 	}
 });
 var haxe = {};

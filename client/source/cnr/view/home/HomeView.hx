@@ -38,14 +38,14 @@ class HomeView extends CuinerEntity
 		"bt-category-thai",
 		"bt-category-sandwich",
 		"bt-category-pizza",
-		"bt-category-drinks",		
+		"bt-category-drinks",	
+		"field-menu-user-photo",
 		];
 		for (i in 0...btl.length) 
 		{ 
 			bt = Browser.document.getElementById(btl[i]); 
 			if (bt == null) { trace("[" + btl[i] + "]"); continue; }
-			bt.onclick = OnButtonClick; 
-			
+			bt.onclick = OnButtonClick;			
 		}
 		
 	}
@@ -75,10 +75,12 @@ class HomeView extends CuinerEntity
 				Browser.window.location.href = search_url;
 			case "bt-form-register":
 				trace(modal.RegisterData);
-				application.controller.ProcessRegister(modal.RegisterData);
+				application.controller.ProcessRegister(modal.RegisterData,modal);
 			case "bt-form-login":
 				trace(modal.LoginData);
-				application.controller.ProcessLogin(modal.LoginData);
+				application.controller.ProcessLogin(modal.LoginData, modal);
+				
+			case "field-menu-user-photo": application.controller.LogOut();
 			
 			case "bt-category-vegan",
 			 "bt-category-dessert",
