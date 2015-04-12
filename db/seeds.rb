@@ -1,11 +1,14 @@
 User.all.map(&:destroy)
 
+avatar = Cloudinary::Uploader.upload(Rails.root.join("design/imgs/banners/user_profile.jpg").to_s)
+
 dudu = User.create!(
   name: "Eduardo Costa",
   email: "eduardo@thelaborat.org",
   password: "aaa123",
   password_confirmation: "aaa123",
-  phone: "5187346543"
+  phone: "5187346543",
+  photo_url: avatar["url"]
 )
 
 joao = User.create!(
@@ -13,7 +16,8 @@ joao = User.create!(
   email: "joaofranscisconeto@gmail.com",
   password: "aaa123",
   password_confirmation: "aaa123",
-  phone: "5198231234"
+  phone: "5198231234",
+  photo_url: avatar["url"]
 )
 
 rafael = User.create!(
@@ -21,7 +25,8 @@ rafael = User.create!(
   email: "rafael.ssouza@gmail.com",
   password: "aaa123",
   password_confirmation: "aaa123",
-  phone: "5197234474"
+  phone: "5197234474",
+  photo_url: avatar["url"]
 )
 
 dudu.menus.create!(
