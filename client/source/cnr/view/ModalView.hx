@@ -1,4 +1,4 @@
-package cnr.view.home;
+package cnr.view;
 import haxe.Timer;
 import js.Browser;
 import js.html.Element;
@@ -8,7 +8,7 @@ import js.html.InputElement;
  * ...
  * @author 
  */
-class HomeModalView extends CuinerEntity
+class ModalView extends CuinerEntity
 {
 	
 	
@@ -60,16 +60,15 @@ class HomeModalView extends CuinerEntity
 		};
 	}
 	
+	
 	public function Show(p_mode:String):Void
 	{
-		
 		element.style.display = "block";
 		Timer.delay(function() { element.style.opacity = "1.0"; }, 100);
-		
+		trace(">> "+p_mode);
 		Browser.document.getElementById("modal-login").style.display = p_mode == "modal-login" ? "block" : "none";
 		Browser.document.getElementById("modal-register").style.display = p_mode == "modal-register" ? "block" : "none";
-		
-		
+		Browser.document.getElementById("modal-shop-alert").style.display = p_mode == "modal-shop-alert" ? "block" : "none";
 	}
 	
 	public function Hide():Void

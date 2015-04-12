@@ -1,7 +1,7 @@
 package cnr.controller;
 import cnr.core.Web;
 import cnr.model.CuinerModel;
-import cnr.view.home.HomeModalView;
+import cnr.view.ModalView;
 import haxe.Json;
 import haxe.Timer;
 import js.Browser;
@@ -62,6 +62,10 @@ class CuinerController extends CuinerEntity
 			case "search":				
 			trace("CuinerController> UserDataLoaded [" + Browser.window.location.search+"]");
 			ProcessSearch(Browser.window.location.search);
+			
+			case "detail-cardapio":
+			
+			
 		}
 	}
 	
@@ -69,7 +73,7 @@ class CuinerController extends CuinerEntity
 	 * 
 	 * @param	p_data
 	 */
-	public function ProcessLogin(p_data:Dynamic,p_modal:HomeModalView):Void
+	public function ProcessLogin(p_data:Dynamic,p_modal:ModalView):Void
 	{
 		p_modal.SetLoginError("");
 		Web.Send(CuinerWS.UserLogin, p_data, function(r:String, p:Float)
@@ -100,9 +104,9 @@ class CuinerController extends CuinerEntity
 	 * 
 	 * @param	p_data
 	 */
-	public function ProcessRegister(p_data:Dynamic,p_modal:HomeModalView):Void
+	public function ProcessRegister(p_data:Dynamic,p_modal:ModalView):Void
 	{
-		application.view.home.modal.SetRegisterError("");
+		application.view.modal.SetRegisterError("");
 		Web.Send(CuinerWS.UserRegister, p_data, function(r:String, p:Float)
 		{
 			if (p >= 1)
@@ -133,7 +137,7 @@ class CuinerController extends CuinerEntity
 	 */
 	public function ProcessSearch(p_data:String):Void
 	{
-		var url : String = CuinerWS.Search+"/"+p_data;
+		var url : String = CuinerWS.Search+p_data;
 		
 		trace("CuinerController> search[" + url + "]");
 		
@@ -240,6 +244,51 @@ class CuinerController extends CuinerEntity
 		{
 			el1.style.opacity = "0.0";
 			Timer.delay(function() { el1.style.display = "none";  }, 202);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param	p_type
+	 */
+	public function ProcessClicks(p_type : String):Void
+	{
+		var search_url : String =  "busca.html?";		
+		var mv : ModalView = application.view.modal;
+		
+		
+		switch(p_type)
+		{
+			case "bt-location":
+			case "bt-register":
+				mv.Show("modal-register");
+			case "bt-login":
+				mv.Show("modal-login");
+			case "bt-search":
+				
+				search_url += "q=" + mv.SearchData.q;
+				if (mv.SearchData.price != "") search_url += "&price=" + mv.SearchData.price;
+				if (mv.SearchData.persons != "") search_url += "&persons=" + mv.SearchData.persons;				
+				Browser.window.location.href = search_url;
+			case "bt-form-register":
+				trace(mv.RegisterData);
+				application.controller.ProcessRegister(mv.RegisterData,mv);
+			case "bt-form-login":
+				trace(mv.LoginData);
+				application.controller.ProcessLogin(mv.LoginData, mv);
+				
+			case "field-menu-user-photo": application.controller.LogOut();
+			
+			case "bt-publish-bottom",
+			     "bt-publish":
+					 
+			case "bt-buy-product":
+				mv.Show("modal-shop-alert");
+				
+			case "bt-shop-ok":
+				mv.Hide();
+				Timer.delay(function() { Browser.window.location.href = CuinerModel.Root; }, 200);
+				
 		}
 	}
 	
