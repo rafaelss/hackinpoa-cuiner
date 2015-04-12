@@ -44,17 +44,113 @@ p
 	margin:0;
 }
 
+.modal
+{
 
+  transition: opacity 0.4s ease-out;  
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  .background
+  {
+	  background-color: rgba(0,0,0,0.6);
+  }
+  
+  .register
+  {
+	  left:50%;
+	  top:50%;	  
+	  margin-left: -170px;
+	  margin-top: -272px;
+	  width:340px;
+	  height: 545px;	  
+	  background-color: #fff;
+	  
+	  .content
+	  {
+		  top: 15px;
+		  left: 50%;
+		  width: 290px;
+		  margin-left: -145px;
+		  //background-color: rgba(255,30,30,0.2);
+		  
+		  p { margin-top: 5px; margin-bottom:5px; }
+		  
+		  .logo 
+		  {
+			  margin-left: 80px;
+			  width: 135px; 
+		  }
+		  
+		  input { width: 260px; margin-bottom: 20px; }
+		  button { width: 290px; margin-bottom: 0px; }
+		  
+		  .lb-result
+		  {
+			  margin-top: -10px;
+		  }
+		  .bt-social
+		  {
+			  margin-left: 70px;
+			  margin-bottom: 10px;
+		  }
+	  }
+  }
+  
+   .login
+  {
+	  left:50%;
+	  top:50%;	  
+	  margin-left: -170px;
+	  margin-top: -200px;
+	  width:340px;
+	  height: 400px;	  
+	  background-color: #fff;
+	  
+	  .content
+	  {
+		  top: 15px;
+		  left: 50%;
+		  width: 290px;
+		  margin-left: -145px;
+		  //background-color: rgba(255,30,30,0.2);
+		  
+		  p { margin-top: 5px; margin-bottom:5px; }
+		  
+		  .logo 
+		  {
+			  margin-left: 80px;
+			  width: 135px; 
+		  }
+		  
+		  input { width: 260px; margin-bottom: 20px; }
+		  button { width: 290px; margin-bottom: 0px; }
+		  
+		  .lb-result
+		  {
+			  margin-top: -10px;
+		  }
+		  .bt-social
+		  {
+			  margin-left: 70px;
+			  margin-bottom: 10px;
+		  }
+	  }
+  }
+}
 
   
 .home
 {
   left: 0px;
   top: 0px;
+  
+  
+  
   .sections
   {
 	  
-	  .splash
+	  .s0
 	  {
 		  height: 500px;
 		  
@@ -88,10 +184,28 @@ p
 		  .dock-right
 		  {
 			  right:0px;
-			  bottom: 10px;
+			  bottom: 60px;
 			  width: 400px;
 			  height: 400px;
 			  
+			  .menu
+			  {
+				
+				height:50px;
+				
+				span { user-select: none; }
+				a:nth-child(1) 
+				{
+					margin-right: 60px;
+					span:nth-child(1) { top: 4px; margin-right: 5px; }
+					span:nth-child(2) { margin-right: 2px; }
+					span:nth-child(3) { top: 1px; }
+				}
+				a:nth-child(2) 
+				{
+					margin-right: 20px;
+				}
+			  }
 			  
 			.top
 			{
@@ -124,6 +238,7 @@ p
 					.c-button-yellow
 					{
 						margin-left: 154px;
+						padding-top: 8px;
 						width: 137px;
 						height: 40px;
 					}
@@ -160,14 +275,20 @@ p
 		  }
 	  }
 	  
-	  .mid
+	  .s1
 	  {
-		  height: 600px;
+		  height: 845px;
 	  }
 	  
-	  .end
+	  .s2
 	  {
-		  height: 100px;
+		  height: 115px;
+		  background-color: #e2b250;
+	  }
+	  
+	  .s3
+	  {
+		  height: 70px;		  
 	  }
 	  
   }

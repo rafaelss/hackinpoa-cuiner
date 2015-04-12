@@ -2,10 +2,30 @@ package cnr.model;
 import js.Browser;
 
 /**
+ * Class that contains webservices URL.
+ */
+class CuinerWS
+{
+	/**
+	 * Load initial data to check if user is logged.
+	 */
+	static public var UserInit : String = "./init";
+	
+	/**
+	 * Performs user login.
+	 */
+	static public var UserLogin : String = "http://cuiner.herokuapp.com/user/authenticate";
+	
+	/**
+	 * Registers a new user.
+	 */	
+	static public var UserRegister : String = "./register";
+}
+
+/**
  * Class that defines global values and flags.
  * @author 
  */
-@:native("CuinerFlags")
 class CuinerModel
 {
 
@@ -48,5 +68,10 @@ class CuinerModel
 		if (p.indexOf("dashboard/menu") >= 0) return "register-menu";
 		return "";		
 	}
+	
+	/**
+	 * Login Data Retrieved on page load.
+	 */
+	static public var UserLoginData : Dynamic = {};
 	
 }

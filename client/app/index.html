@@ -8,7 +8,7 @@
     <title>Food Everywhere - Cuiner</title>
 
 	<!--Favicon-->
-	<link rel="icon" type="image/png" href="favicon-gcom.png" />
+	<link rel="icon" type="image/png" href="favicon.png" />
 	
 	<!--Open Iconic Lib-->
 	<link href="/styles/open-iconic/css/open-iconic.css" rel="stylesheet">
@@ -45,7 +45,7 @@
 	<script type="text/javascript" src="scripts/tools/bowser.js"></script>
 	<script type="text/javascript" src="scripts/tools/modernizr.js"></script>	
 	<script type="text/javascript" src="scripts/tools/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBMspAFvDHwuhBQHX5bLsObLDKjfE95Okw&sensor=true"></script>
+	<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBMspAFvDHwuhBQHX5bLsObLDKjfE95Okw&sensor=true"></script>-->
 
     <!-- Page styles -->
     <link rel="stylesheet" href="styles/home.css">
@@ -54,7 +54,7 @@
 	  
 	<div class="home fwh">		
 		<section class="sections rel lh0">		
-			<div id="s-splash" class="splash fw ib oh rel" style="background-color:#f33;">				
+			<div id="section0" class="s0 fw ib oh rel" style="background-color:#f33;">				
 				<div id="s-splash-background" class="fwh abs">
 					<div class="background fw abs" style="background-image: url('images/home/splash/splash-00.jpg')"></div>
 				</div>
@@ -65,6 +65,15 @@
 					<p class="fbi tc fs28 c-yellow">na sua casa</p>
 				</div>
 				<div class="dock-right abs">
+					<div class="menu ib c-white">
+						<a id="bt-location">
+							<span class="fs14 oi rel" data-glyph="location"></span>
+							<span class="fs12">Porto Alegre</span>
+							<span class="fs8 oi rel" data-glyph="caret-bottom"></span>
+						</a>
+						<a id="bt-register"><span class="fs12">Criar cadastro</span></a>
+						<a id="bt-login"><span class="fs12">Entrar</span></a>
+					</div>
 					<div class="top fw rel">
 						<div class="form rel">
 							<input class="c-field fs12 fw rel" type="text" placeholder="O que gostaria de comer?"/>
@@ -72,22 +81,60 @@
 							<input class="c-field fs12 fw rel" type="text" placeholder="Faixa de preço?"/>
 							<input class="c-field fs12 fw rel" type="text" placeholder="Qtas pessoas?"/>
 							
-							<button class="c-button-yellow fs18">Buscar</button>
+							<button id="bt-search" class="c-button-yellow fs18">Buscar</button>
 						</div>
 					</div>
 					<div class="footer fw rel">
 						<div class="content fw rel">
 							<p class="t0 fr fs10 tl c-white rel">Tem o prato que seus amigos amam?<br/>Mais pessoas merecem apreciá-lo.</p>
-							<button class="c-button-blue fs16 fw rel">Divulgue o seu Menu</button>
+							<button id="bt-publish" class="c-button-blue fs16 fw rel">Divulgue o seu Menu</button>
 						</div>
 					</div>
 				</div>
 			</div>	
-			<div id="s-mid"    class="mid fw ib rel" style="background-color:#ff3;"></div>	
-			<div id="s-end"    class="end fw ib rel" style="background-color:#3f3;"></div>	
+			<div id="section1"    class="s1 fw ib rel"></div>	
+			<div id="section2"    class="s2 fw ib rel"></div>	
+			<div id="section3"    class="s3 fw ib rel"></div>	
 		</section>
+		
 	</div>  
-	  
+	
+	<div id="modal" class="modal fwh abs" style="display:none; opacity:0.0;">
+		<div class="background fwh"></div>
+		<div id="modal-register" class="register abs" style="display:none;">
+			<div class="content fwh rel">
+				<img class="logo" src="images/logo/logo-cuiner.png"/>
+				<p class="fs11 fw tc c-gray">Preencha os campos abaixo para cadastrar.</p>
+				<input id="field-register-name" class="c-field fs12 fw rel" type="text" placeholder="Nome"/>
+				<input id="field-register-surname" class="c-field fs12 fw rel" type="text" placeholder="Sobrenome"/>
+				<input id="field-register-email" class="c-field fs12 fw rel" type="text" placeholder="Email"/>
+				<input id="field-register-password" class="c-field fs12 fw rel" placeholder="Senha" type="password" />
+				<p id="lb-register-error" class="lb-result fs12 c-red"></p>
+				<p class="fs11 fw tl c-gray">Ao cadastrar você concorda com os <br/> <a class="a-yellow c-yellow">Termos de Uso e Responsabilidade</a></p>
+				<button id="bt-form-register" class="c-button-yellow fs14">Cadastrar</button>
+				<p class="fs14 tc c-gray"><strong>ou</strong></p>
+				<a id="bt-form-facebook"><img class="bt-social" src="images/button/bt-home-facebook.png" /></a>
+				<a id="bt-form-googleplus"><img class="bt-social" src="images/button/bt-home-googleplus.png" /></a>
+			</div>
+		</div>
+		
+		<div id="modal-login" class="login abs" style="display:none;">
+			<div class="content fwh rel">
+				<img class="logo" src="images/logo/logo-cuiner.png"/>
+				<p class="fs11 fw tc c-gray">Preencha os campos abaixo para fazer login.</p>
+				<input id="field-login-email" class="c-field fs12 fw rel" type="text" placeholder="Email"/>
+				<input id="field-login-password" class="c-field fs12 fw rel" placeholder="Senha" type="password" />
+				<p id="lb-login-error" class="lb-result fs12 c-red"></p>
+				<p class="fs11 fw tl c-gray"><a class="a-yellow c-yellow">Esqueci minha senha</a></p>
+				<button id="bt-form-login" class="c-button-yellow fs14">Login</button>
+				<p class="fs14 tc c-gray"><strong>ou</strong></p>
+				<a id="bt-form-facebook"><img class="bt-social" src="images/button/bt-home-facebook.png" /></a>
+				<a id="bt-form-googleplus"><img class="bt-social" src="images/button/bt-home-googleplus.png" /></a>
+			</div>
+		</div>
+		
+	</div>
+	
     <!-- build:js scripts/main.min.js -->
 	<script src="scripts/app.js"></script>
     <!-- endbuild -->

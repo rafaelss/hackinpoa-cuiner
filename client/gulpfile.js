@@ -44,18 +44,15 @@ var AUTOPREFIXER_BROWSERS = [
 gulp.task('jshint', function () {
   return gulp.src('app/scripts/**/*.js')
     .pipe(reload({stream: true, once: true}))
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
+    //.pipe($.jshint())
+    //.pipe($.jshint.reporter('jshint-stylish'))
+    //.pipe($.if(!browserSync.active, $.jshint.reporter('fail')));
 });
 
 // Optimize images
 gulp.task('images', function () {
   return gulp.src('app/images/**/*')
-    .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true
-    })))
+    //.pipe($.cache($.imagemin({ progressive: true, interlaced: true })))
     .pipe(gulp.dest('dist/images'))
     .pipe($.size({title: 'images'}));
 });
@@ -110,7 +107,7 @@ gulp.task('html', function () {
   return gulp.src('app/**/*.html')
     .pipe(assets)
     // Concatenate and minify JavaScript
-    .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+    //.pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
     // Remove any unused CSS
     // Note: if not using the Style Guide, you can delete it from
     //       the next line to only include styles your project uses.
@@ -133,7 +130,7 @@ gulp.task('html', function () {
     // Update production Style Guide paths
     .pipe($.replace('components/components.css', 'components/main.min.css'))
     // Minify any HTML
-    .pipe($.if('*.html', $.minifyHtml()))
+    //.pipe($.if('*.html', $.minifyHtml()))
     // Output files
     .pipe(gulp.dest('dist'))
     .pipe($.size({title: 'html'}));
@@ -179,8 +176,8 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  //runSequence('styles', ['html', 'images', 'fonts', 'copy'], cb);
-  runSequence('styles', ['copy'], cb);
+  runSequence('styles', ['html', 'images', 'fonts', 'copy'], cb);
+  
 });
 
 // Run PageSpeed Insights
