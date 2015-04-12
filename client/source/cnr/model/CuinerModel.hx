@@ -74,8 +74,7 @@ class CuinerModel
 		var p : String = Path.toLowerCase();
 		
 		if (p == "") return "home";
-		if (p.indexOf("dashboard/user") >= 0) return "register-user";
-		if (p.indexOf("dashboard/menu") >= 0) return "register-menu";
+		if (p.indexOf("detail-cardapio") >= 0) return "detail-cardapio";
 		if (p.indexOf("busca") >= 0) return "search";
 		return "";		
 	}
