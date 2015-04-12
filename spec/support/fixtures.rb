@@ -3,6 +3,7 @@ module Fixtures
     attributes.reverse_merge!(
       name: "foo",
       email: "foo@bar.com",
+      phone: "5198765432",
       password: "aaa123",
       password_confirmation: "aaa123"
     )
