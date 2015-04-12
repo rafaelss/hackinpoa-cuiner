@@ -22,12 +22,30 @@ CuinerApplication.prototype = {
 		if(window.Controller == null) window.Controller = ref;
 	}
 };
-var CuinerEntity = function() {
+var CuinerEntity = function(p_mouse_ev) {
+	if(p_mouse_ev == null) p_mouse_ev = false;
+	if(p_mouse_ev) {
+		var bt;
+		var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-publish-bottom","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks","field-menu-user-photo","container-search","bt-buy-product","bt-shop-ok"];
+		var _g1 = 0;
+		var _g = btl.length;
+		while(_g1 < _g) {
+			var i = _g1++;
+			bt = window.document.getElementById(btl[i]);
+			if(bt == null) {
+				console.log(btl[i]);
+				continue;
+			}
+			bt.onclick = $bind(this,this.OnButtonClick);
+		}
+	}
 };
 CuinerEntity.__name__ = true;
 CuinerEntity.prototype = {
 	get_application: function() {
 		return CuinerApplication.instance;
+	}
+	,OnButtonClick: function(p_ev) {
 	}
 };
 var HxOverrides = function() { };
@@ -96,6 +114,8 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 			console.log("CuinerController> UserDataLoaded [" + window.location.search + "]");
 			this.ProcessSearch(window.location.search);
 			break;
+		case "detail-cardapio":
+			break;
 		}
 	}
 	,ProcessLogin: function(p_data,p_modal) {
@@ -120,7 +140,7 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 	}
 	,ProcessRegister: function(p_data,p_modal) {
 		var _g = this;
-		this.get_application().view.home.modal.SetRegisterError("");
+		this.get_application().view.modal.SetRegisterError("");
 		cnr.core.Web.Send(cnr.model.CuinerWS.UserRegister,p_data,function(r,p) {
 			if(p >= 1) {
 				if(r == null) {
@@ -139,7 +159,7 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 		});
 	}
 	,ProcessSearch: function(p_data) {
-		var url = cnr.model.CuinerWS.Search + "/" + p_data;
+		var url = cnr.model.CuinerWS.Search + p_data;
 		console.log("CuinerController> search[" + url + "]");
 		cnr.core.Web.Send(url,p_data,function(r,p) {
 			if(p >= 1) {
@@ -207,6 +227,48 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 			haxe.Timer.delay(function() {
 				el1.style.display = "none";
 			},202);
+		}
+	}
+	,ProcessClicks: function(p_type) {
+		var search_url = "busca.html?";
+		var mv = this.get_application().view.modal;
+		switch(p_type) {
+		case "bt-location":
+			break;
+		case "bt-register":
+			mv.Show("modal-register");
+			break;
+		case "bt-login":
+			mv.Show("modal-login");
+			break;
+		case "bt-search":
+			search_url += "q=" + Std.string(mv.get_SearchData().q);
+			if(mv.get_SearchData().price != "") search_url += "&price=" + Std.string(mv.get_SearchData().price);
+			if(mv.get_SearchData().persons != "") search_url += "&persons=" + Std.string(mv.get_SearchData().persons);
+			window.location.href = search_url;
+			break;
+		case "bt-form-register":
+			console.log(mv.get_RegisterData());
+			this.get_application().controller.ProcessRegister(mv.get_RegisterData(),mv);
+			break;
+		case "bt-form-login":
+			console.log(mv.get_LoginData());
+			this.get_application().controller.ProcessLogin(mv.get_LoginData(),mv);
+			break;
+		case "field-menu-user-photo":
+			this.get_application().controller.LogOut();
+			break;
+		case "bt-publish-bottom":case "bt-publish":
+			break;
+		case "bt-buy-product":
+			mv.Show("modal-shop-alert");
+			break;
+		case "bt-shop-ok":
+			mv.Hide();
+			haxe.Timer.delay(function() {
+				window.location.href = cnr.model.CuinerModel.get_Root();
+			},200);
+			break;
 		}
 	}
 });
@@ -295,8 +357,7 @@ cnr.model.CuinerModel.get_Path = function() {
 cnr.model.CuinerModel.get_Page = function() {
 	var p = cnr.model.CuinerModel.get_Path().toLowerCase();
 	if(p == "") return "home";
-	if(p.indexOf("dashboard/user") >= 0) return "register-user";
-	if(p.indexOf("dashboard/menu") >= 0) return "register-menu";
+	if(p.indexOf("detail-cardapio") >= 0) return "detail-cardapio";
 	if(p.indexOf("busca") >= 0) return "search";
 	return "";
 };
@@ -307,6 +368,7 @@ cnr.view = {};
 cnr.view.CuinerView = function() {
 	CuinerEntity.call(this);
 	console.log("CuinerView> ctor page[" + cnr.model.CuinerModel.get_Page() + "]");
+	this.modal = new cnr.view.ModalView();
 	var _g = cnr.model.CuinerModel.get_Page();
 	switch(_g) {
 	case "home":
@@ -315,14 +377,16 @@ cnr.view.CuinerView = function() {
 	case "search":
 		this.search = new cnr.view.search.SearchView();
 		break;
+	case "detail-cardapio":
+		this.detail_cardapio = new cnr.view.detail.CardapioView();
+		break;
 	}
 };
 cnr.view.CuinerView.__name__ = true;
 cnr.view.CuinerView.__super__ = CuinerEntity;
 cnr.view.CuinerView.prototype = $extend(CuinerEntity.prototype,{
 });
-cnr.view.home = {};
-cnr.view.home.HomeModalView = function() {
+cnr.view.ModalView = function() {
 	var _g = this;
 	CuinerEntity.call(this);
 	this.element = window.document.getElementById("modal");
@@ -332,9 +396,9 @@ cnr.view.home.HomeModalView = function() {
 		_g.Hide();
 	};
 };
-cnr.view.home.HomeModalView.__name__ = true;
-cnr.view.home.HomeModalView.__super__ = CuinerEntity;
-cnr.view.home.HomeModalView.prototype = $extend(CuinerEntity.prototype,{
+cnr.view.ModalView.__name__ = true;
+cnr.view.ModalView.__super__ = CuinerEntity;
+cnr.view.ModalView.prototype = $extend(CuinerEntity.prototype,{
 	get_RegisterData: function() {
 		var res = { };
 		var f;
@@ -374,8 +438,10 @@ cnr.view.home.HomeModalView.prototype = $extend(CuinerEntity.prototype,{
 		haxe.Timer.delay(function() {
 			_g.element.style.opacity = "1.0";
 		},100);
+		console.log(">> " + p_mode);
 		if(p_mode == "modal-login") window.document.getElementById("modal-login").style.display = "block"; else window.document.getElementById("modal-login").style.display = "none";
 		if(p_mode == "modal-register") window.document.getElementById("modal-register").style.display = "block"; else window.document.getElementById("modal-register").style.display = "none";
+		if(p_mode == "modal-shop-alert") window.document.getElementById("modal-shop-alert").style.display = "block"; else window.document.getElementById("modal-shop-alert").style.display = "none";
 	}
 	,Hide: function() {
 		var _g = this;
@@ -393,23 +459,26 @@ cnr.view.home.HomeModalView.prototype = $extend(CuinerEntity.prototype,{
 		el.innerHTML = p_msg;
 	}
 });
-cnr.view.home.HomeView = function() {
-	CuinerEntity.call(this);
-	console.log("HomeView> ctor");
-	this.modal = new cnr.view.home.HomeModalView();
-	var bt;
-	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","bt-category-vegan","bt-category-dessert","bt-category-thai","bt-category-sandwich","bt-category-pizza","bt-category-drinks","field-menu-user-photo"];
-	var _g1 = 0;
-	var _g = btl.length;
-	while(_g1 < _g) {
-		var i = _g1++;
-		bt = window.document.getElementById(btl[i]);
-		if(bt == null) {
-			console.log("[" + btl[i] + "]");
-			continue;
-		}
-		bt.onclick = $bind(this,this.OnButtonClick);
+cnr.view.detail = {};
+cnr.view.detail.CardapioView = function() {
+	CuinerEntity.call(this,true);
+	console.log("CardapioView> ctor");
+};
+cnr.view.detail.CardapioView.__name__ = true;
+cnr.view.detail.CardapioView.__super__ = CuinerEntity;
+cnr.view.detail.CardapioView.prototype = $extend(CuinerEntity.prototype,{
+	OnButtonClick: function(p_event) {
+		var ev = p_event;
+		var el = ev.currentTarget;
+		console.log("CardapioView> Clicked [" + el.id + "]");
+		var _g = el.id;
+		this.get_application().controller.ProcessClicks(el.id);
 	}
+});
+cnr.view.home = {};
+cnr.view.home.HomeView = function() {
+	CuinerEntity.call(this,true);
+	console.log("HomeView> ctor");
 };
 cnr.view.home.HomeView.__name__ = true;
 cnr.view.home.HomeView.__super__ = CuinerEntity;
@@ -418,60 +487,23 @@ cnr.view.home.HomeView.prototype = $extend(CuinerEntity.prototype,{
 		var ev = p_event;
 		var el = ev.currentTarget;
 		var search_url = "busca.html?";
+		var mv = this.get_application().view.modal;
 		console.log("HomeView> Clicked [" + el.id + "]");
 		var _g = el.id;
 		switch(_g) {
-		case "bt-location":
-			break;
-		case "bt-register":
-			this.modal.Show("modal-register");
-			break;
-		case "bt-login":
-			this.modal.Show("modal-login");
-			break;
-		case "bt-search":
-			search_url += "q=" + Std.string(this.modal.get_SearchData().q);
-			if(this.modal.get_SearchData().price != "") search_url += "&price=" + Std.string(this.modal.get_SearchData().price);
-			if(this.modal.get_SearchData().persons != "") search_url += "&persons=" + Std.string(this.modal.get_SearchData().persons);
-			window.location.href = search_url;
-			break;
-		case "bt-form-register":
-			console.log(this.modal.get_RegisterData());
-			this.get_application().controller.ProcessRegister(this.modal.get_RegisterData(),this.modal);
-			break;
-		case "bt-form-login":
-			console.log(this.modal.get_LoginData());
-			this.get_application().controller.ProcessLogin(this.modal.get_LoginData(),this.modal);
-			break;
-		case "field-menu-user-photo":
-			this.get_application().controller.LogOut();
-			break;
 		case "bt-category-vegan":case "bt-category-dessert":case "bt-category-thai":case "bt-category-sandwich":case "bt-category-pizza":case "bt-category-drinks":
 			var cat = el.id.split("-")[2];
 			search_url += "q=" + cat;
 			window.location.href = search_url;
 			break;
 		}
+		this.get_application().controller.ProcessClicks(el.id);
 	}
 });
 cnr.view.search = {};
 cnr.view.search.SearchView = function() {
-	CuinerEntity.call(this);
+	CuinerEntity.call(this,true);
 	console.log("SearchView> ctor");
-	this.modal = new cnr.view.home.HomeModalView();
-	var bt;
-	var btl = ["bt-location","bt-register","bt-login","bt-search","bt-form-login","bt-form-register","bt-publish","field-menu-user-photo"];
-	var _g1 = 0;
-	var _g = btl.length;
-	while(_g1 < _g) {
-		var i = _g1++;
-		bt = window.document.getElementById(btl[i]);
-		if(bt == null) {
-			console.log("[" + btl[i] + "]");
-			continue;
-		}
-		bt.onclick = $bind(this,this.OnButtonClick);
-	}
 };
 cnr.view.search.SearchView.__name__ = true;
 cnr.view.search.SearchView.__super__ = CuinerEntity;
@@ -479,36 +511,16 @@ cnr.view.search.SearchView.prototype = $extend(CuinerEntity.prototype,{
 	OnButtonClick: function(p_event) {
 		var ev = p_event;
 		var el = ev.currentTarget;
-		var search_url = "busca.html?";
 		console.log("SearchView> Clicked [" + el.id + "]");
 		var _g = el.id;
 		switch(_g) {
-		case "bt-location":
-			break;
-		case "bt-register":
-			this.modal.Show("modal-register");
-			break;
-		case "bt-login":
-			this.modal.Show("modal-login");
-			break;
-		case "bt-search":
-			search_url += "q=" + Std.string(this.modal.get_SearchData().q);
-			if(this.modal.get_SearchData().price != "") search_url += "&price=" + Std.string(this.modal.get_SearchData().price);
-			if(this.modal.get_SearchData().persons != "") search_url += "&persons=" + Std.string(this.modal.get_SearchData().persons);
-			window.location.href = search_url;
-			break;
-		case "bt-form-register":
-			console.log(this.modal.get_RegisterData());
-			this.get_application().controller.ProcessRegister(this.modal.get_RegisterData(),this.modal);
-			break;
-		case "bt-form-login":
-			console.log(this.modal.get_LoginData());
-			this.get_application().controller.ProcessLogin(this.modal.get_LoginData(),this.modal);
-			break;
-		case "field-menu-user-photo":
-			this.get_application().controller.LogOut();
+		case "container-search":
+			el = ev.target;
+			console.log(el.parentElement);
+			window.location.href = "detail-cardapio.html";
 			break;
 		}
+		this.get_application().controller.ProcessClicks(el.id);
 	}
 });
 var haxe = {};
