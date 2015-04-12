@@ -24,8 +24,7 @@ RSpec.describe "Current User", type: :request do
 
         expect(response).to have_http_status(200)
         expect(subject["user"]["id"]).to match(/^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/)
-        expect(subject["user"]["first_name"]).to eq("foo")
-        expect(subject["user"]["last_name"]).to eq("baz")
+        expect(subject["user"]["name"]).to eq("foo")
         expect(subject["user"]["email"]).to eq("foo@bar.com")
       end
     end

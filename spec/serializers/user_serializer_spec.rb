@@ -8,12 +8,8 @@ describe UserSerializer, type: :serializer do
     expect(subject.id).to eq(model.public_id)
   end
 
-  it ".first_name" do
-    expect(subject.first_name).to eq("foo")
-  end
-
-  it ".last_name" do
-    expect(subject.last_name).to eq("baz")
+  it ".name" do
+    expect(subject.name).to eq("foo")
   end
 
   it ".email" do
@@ -24,7 +20,7 @@ describe UserSerializer, type: :serializer do
     subject { serializer.as_json["user"] }
 
     it "should have declared attributes" do
-      expect(subject.keys).to eq([:id, :first_name, :last_name, :email])
+      expect(subject.keys).to eq([:id, :name, :email])
     end
   end
 end
