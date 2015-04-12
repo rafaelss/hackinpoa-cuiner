@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def create
     user = User.create(allowed_params)
+    session[:user_id] = user.public_id if user.persisted?
     respond_with(user)
   end
 

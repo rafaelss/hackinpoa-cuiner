@@ -18,6 +18,7 @@ RSpec.describe "Authentication", type: :request do
 
         expect(response).to have_http_status(302)
         expect(response.headers["Location"]).to eq("http://www.example.com/user")
+        expect(session["user_id"]).to eq(user.public_id)
       end
     end
   end

@@ -13,6 +13,7 @@ RSpec.describe "Users", type: :request do
       expect(subject["user"]["first_name"]).to eq("foo")
       expect(subject["user"]["last_name"]).to eq("baz")
       expect(subject["user"]["email"]).to eq("foo@bar.com")
+      expect(session["user_id"]).to eq(subject["user"]["id"])
     end
   end
 end
