@@ -145,7 +145,11 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 			if(p >= 1) {
 				if(r == null) console.log("CuinerController> Search Error"); else {
 					console.log("CuinerController> Search Success");
-					var res = JSON.parse(r);
+					var res = { menus : []};
+					try {
+						res = JSON.parse(r);
+					} catch( err ) {
+					}
 					console.log(res);
 				}
 			}
