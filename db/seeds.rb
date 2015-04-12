@@ -1,9 +1,9 @@
 User.all.map(&:destroy)
 
 users = User.create!([
-  { name: "Eduardo Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123" },
-  { name: "João de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123" },
-  { name: "Rafael Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123" }
+  { name: "Eduardo Costa", email: "eduardo@thelaborat.org", password: "aaa123", password_confirmation: "aaa123", phone: "5187346543" },
+  { name: "João de Freitas", email: "joaofranscisconeto@gmail.com", password: "aaa123", password_confirmation: "aaa123", phone: "5198231234" },
+  { name: "Rafael Souza", email: "rafael.ssouza@gmail.com", password: "aaa123", password_confirmation: "aaa123", phone: "5197234474" }
 ])
 
 menus = Menu.create!([
@@ -12,5 +12,5 @@ menus = Menu.create!([
   { user_id: users[2].id, name: "Comida Japonesa", price: 20, price_per_person: 20, number_of_people: [2, 5], tags: ["sushi", "sashimi"] }
 ])
 
-p Menu.search("churras")
-p Menu.search("sushi")
+ap Menu.search("churras", numericFilters: ["price<=45"])
+ap Menu.search("sushi", numericFilters: "max_number_of_people>=5")
