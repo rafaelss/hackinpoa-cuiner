@@ -281,6 +281,7 @@ class CuinerController extends CuinerEntity
 			
 			case "bt-publish-bottom",
 			     "bt-publish":
+					 Browser.window.location.href = CuinerModel.Root + "/dashboard-cardapio.html";
 					 
 			case "bt-buy-product":
 				mv.Show("modal-shop-alert");

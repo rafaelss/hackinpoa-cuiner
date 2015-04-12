@@ -259,6 +259,7 @@ cnr.controller.CuinerController.prototype = $extend(CuinerEntity.prototype,{
 			this.get_application().controller.LogOut();
 			break;
 		case "bt-publish-bottom":case "bt-publish":
+			window.location.href = cnr.model.CuinerModel.get_Root() + "/dashboard-cardapio.html";
 			break;
 		case "bt-buy-product":
 			mv.Show("modal-shop-alert");
