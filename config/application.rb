@@ -40,7 +40,7 @@ module Cuiner
       g.helper false
     end
 
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.insert_before 0, "Rack::Cors", debug: true, logger: proc { Rails.logger } do
       allow do
         origins '*'
         resource '*', headers: :any, methods: [:get, :post, :options]
