@@ -52,7 +52,7 @@ class SearchView extends CuinerEntity
 		var ev : MouseEvent = p_event;
 		var el : Element = cast	ev.currentTarget;
 		
-		var search_url : String =  "search.html?";
+		var search_url : String =  "busca.html?";
 		
 		trace("SearchView> Clicked ["+el.id+"]");
 		switch(el.id)
