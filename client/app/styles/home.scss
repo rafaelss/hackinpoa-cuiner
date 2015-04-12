@@ -145,8 +145,6 @@ p
   left: 0px;
   top: 0px;
   
-  
-  
   .sections
   {
 	  
@@ -194,9 +192,10 @@ p
 				height:50px;
 				
 				span { user-select: none; }
+				
 				a:nth-child(1) 
 				{
-					margin-right: 60px;
+					margin-right: 10px;
 					span:nth-child(1) { top: 4px; margin-right: 5px; }
 					span:nth-child(2) { margin-right: 2px; }
 					span:nth-child(3) { top: 1px; }
@@ -205,6 +204,37 @@ p
 				{
 					margin-right: 20px;
 				}
+				
+				.menu-logout
+				{			
+					top:15px;
+					right:35px;
+				}
+				
+				.menu-login
+				{			
+					top:15px;
+					right:35px;
+					
+					margin-top: -20px;
+					
+					a:nth-child(1) 
+					{
+						.user-photo
+						{
+							width:45px;
+							height: 25px;
+						}
+						margin-right: 10px;
+						span:nth-child(1) { top: 4px; margin-right: 5px; }
+						span:nth-child(2) { margin-right: 2px; }
+						span:nth-child(3) { top: 1px; }
+						
+						img:nth-child(1) { width: 45px; height: 45px; }
+						img:nth-child(2) { width: 45px; height: 45px; }
+					}					
+				}
+				
 			  }
 			  
 			.top

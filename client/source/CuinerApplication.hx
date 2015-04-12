@@ -1,5 +1,6 @@
 package;
 import cnr.controller.CuinerController;
+import cnr.model.CuinerModel;
 import cnr.view.CuinerView;
 
 /**
@@ -17,7 +18,8 @@ class CuinerApplication
 	public function new() 
 	{
 		instance = this;
-		
+		untyped if (window.Model == null) window.Model = cnr.model.CuinerModel;		
+		untyped if (window.WS == null) window.WS = cnr.model.CuinerWS;
 	}
 	
 	/**
@@ -30,5 +32,8 @@ class CuinerApplication
 		controller = new CuinerController();
 		controller.LoadUserData();
 		
+		var ref : Dynamic;
+		ref = controller;
+		untyped if (window.Controller == null) window.Controller = ref;
 	}
 }

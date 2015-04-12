@@ -19,10 +19,10 @@ class HomeModalView extends CuinerEntity
 	{
 		var res : Dynamic = { };
 		var f : InputElement;		
-		f = cast Browser.document.getElementById("field-register-name"); res.name = f.value;
-		f = cast Browser.document.getElementById("field-register-surname"); res.surname = f.value;
-		f = cast Browser.document.getElementById("field-register-email"); res.email = f.value;
-		f = cast Browser.document.getElementById("field-register-password"); res.password = f.value;		
+		f = cast Browser.document.getElementById("field-register-name"); 	 res.first_name = f.value;
+		f = cast Browser.document.getElementById("field-register-surname");  res.last_name = f.value;
+		f = cast Browser.document.getElementById("field-register-email"); 	 res.email = f.value;
+		f = cast Browser.document.getElementById("field-register-password"); res.password = res.password_confirmation = f.value;		
 		return res;
 	}
 	

@@ -9,7 +9,7 @@ class CuinerWS
 	/**
 	 * Load initial data to check if user is logged.
 	 */
-	static public var UserInit : String = "./init";
+	static public var User : String = "http://cuiner.herokuapp.com/user";
 	
 	/**
 	 * Performs user login.
@@ -17,9 +17,14 @@ class CuinerWS
 	static public var UserLogin : String = "http://cuiner.herokuapp.com/user/authenticate";
 	
 	/**
+	 * Performs user logout.
+	 */
+	static public var UserLogout : String = "http://cuiner.herokuapp.com/user/logout";
+	
+	/**
 	 * Registers a new user.
 	 */	
-	static public var UserRegister : String = "./register";
+	static public var UserRegister : String = "http://cuiner.herokuapp.com/users";
 }
 
 /**
@@ -72,6 +77,12 @@ class CuinerModel
 	/**
 	 * Login Data Retrieved on page load.
 	 */
-	static public var UserLoginData : Dynamic = {};
+	static public var UserLoginData : Dynamic;
+	
+	/**
+	 * 
+	 */
+	static public var IsLogged(get_IsLogged, never) : Bool;
+	static private function get_IsLogged():Bool { return UserLoginData != null; }
 	
 }

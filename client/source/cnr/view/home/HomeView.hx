@@ -1,6 +1,9 @@
 package cnr.view.home;
+import cnr.model.CuinerModel;
+import haxe.Timer;
 import js.Browser;
 import js.html.Element;
+import js.html.ImageElement;
 import js.html.MouseEvent;
 
 /**
@@ -41,6 +44,45 @@ class HomeView extends CuinerEntity
 		
 	}
 	
+	/**
+	 * 
+	 */
+	public function ShowLoginData():Void
+	{
+		var el0 : Element;
+		var el1 : Element;
+		
+		el0 = Browser.document.getElementById("menu-login");
+		el0.style.display = "block";
+		Timer.delay(function() { el0.style.opacity = "1.0"; }, 10);
+		
+		el1 = Browser.document.getElementById("menu-logout");
+		el1.style.opacity = "0.0";
+		Timer.delay(function() { el1.style.display = "none";  }, 202);
+		
+		var user_name : Element = Browser.document.getElementById("field-menu-user-name");
+		var user_photo : ImageElement = cast Browser.document.getElementById("field-menu-user-photo");
+		user_name.innerText = CuinerModel.UserLoginData.first_name+" "+CuinerModel.UserLoginData.last_name;
+		user_photo.src = "https://hackingintolife.files.wordpress.com/2011/08/thumb-up.gif";
+	}
+	
+	/**
+	 * 
+	 */
+	public function HideLoginData():Void
+	{
+		var el0 : Element;
+		var el1 : Element;
+		
+		el0 = Browser.document.getElementById("menu-logout");
+		el0.style.display = "block";
+		Timer.delay(function() { el0.style.opacity = "1.0"; }, 10);
+		
+		el1 = Browser.document.getElementById("menu-login");
+		el1.style.opacity = "0.0";
+		Timer.delay(function() { el1.style.display = "none";  }, 202);
+	}
+	
 	private function OnButtonClick(p_event:Dynamic):Void
 	{
 		var ev : MouseEvent = p_event;
@@ -56,6 +98,7 @@ class HomeView extends CuinerEntity
 			case "bt-search":
 			case "bt-form-register":
 				trace(modal.RegisterData);
+				application.controller.ProcessRegister(modal.RegisterData);
 			case "bt-form-login":
 				trace(modal.LoginData);
 				application.controller.ProcessLogin(modal.LoginData);
